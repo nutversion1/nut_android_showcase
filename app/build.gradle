@@ -33,6 +33,14 @@ android {
 }
 
 dependencies {
+    def lifecycle_version = "2.5.1"
+    def room_version = "2.3.0"
+    def work_manager_version = "2.5.0"
+    def gson_version = "2.8.9"
+    def koin_version = "3.1.4"
+    def retrofit2_version = "2.9.0"
+    def navigation_version = "2.5.3"
+    def glide_version = "4.12.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -42,6 +50,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-//    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit2_version"
+
+    implementation "com.google.code.gson:gson:$gson_version"
+
+//    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+//    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 }
