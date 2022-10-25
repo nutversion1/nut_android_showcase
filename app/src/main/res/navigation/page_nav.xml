@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/page_nav"
+    app:startDestination="@id/main_menu_fragment">
+
+    <fragment
+        android:id="@+id/main_menu_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.MainMenuFragment"
+        tools:layout="@layout/fragment_main_menu">
+        <action
+            android:id="@+id/go_to_fun_with_api_fragment_action"
+            app:destination="@id/fun_with_api_fragment">
+        </action>
+        <action
+            android:id="@+id/go_to_about_fragment_action"
+            app:destination="@id/about_fragment">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fun_with_api_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.FunWithApiFragment"
+        tools:layout="@layout/fragment_fun_with_api">
+    </fragment>
+
+    <fragment
+        android:id="@+id/about_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.AboutFragment"
+        tools:layout="@layout/fragment_about">
+    </fragment>
+
+</navigation>

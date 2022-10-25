@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Nut Android Showcase</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fun_with_api_button">Fun With Api</string>
+    <string name="about_button">About</string>
+</resources>
