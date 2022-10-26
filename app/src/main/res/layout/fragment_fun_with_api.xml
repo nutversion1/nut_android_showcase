@@ -13,8 +13,8 @@
         />
 
     <Button
-        android:id="@+id/motivational_quote_button"
-        android:text="Motivational Quote"
+        android:id="@+id/hobbies_button"
+        android:text="Hobbies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

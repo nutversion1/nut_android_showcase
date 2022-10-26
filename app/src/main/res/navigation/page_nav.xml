@@ -24,12 +24,57 @@
         android:id="@+id/fun_with_api_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.FunWithApiFragment"
         tools:layout="@layout/fragment_fun_with_api">
+        <action
+            android:id="@+id/go_to_random_quote_fragment_action"
+            app:destination="@id/random_quote_fragment">
+        </action>
+        <action
+            android:id="@+id/go_to_hobbies_fragment_action"
+            app:destination="@id/hobbies_fragment">
+        </action>
+        <action
+            android:id="@+id/go_to_numbers_fragment_action"
+            app:destination="@id/numbers_fragment">
+        </action>
+        <action
+            android:id="@+id/go_to_imdb_fragment_action"
+            app:destination="@id/imdb_fragment">
+        </action>
+        <action
+            android:id="@+id/go_to_programming_memes_fragment_action"
+            app:destination="@id/programming_memes_fragment">
+        </action>
     </fragment>
-
     <fragment
         android:id="@+id/about_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.AboutFragment"
         tools:layout="@layout/fragment_about">
+    </fragment>
+
+    <fragment
+        android:id="@+id/random_quote_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.RandomQuoteFragment"
+        tools:layout="@layout/fragment_random_quote">
+    </fragment>
+    <fragment
+        android:id="@+id/hobbies_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.HobbiesFragment"
+        tools:layout="@layout/fragment_hobbies">
+    </fragment>
+    <fragment
+        android:id="@+id/numbers_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.NumbersFragment"
+        tools:layout="@layout/fragment_numbers">
+    </fragment>
+    <fragment
+        android:id="@+id/imdb_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.ImdbFragment"
+        tools:layout="@layout/fragment_imdb">
+    </fragment>
+    <fragment
+        android:id="@+id/programming_memes_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.ProgrammingMemesFragment"
+        tools:layout="@layout/fragment_programming_memes">
     </fragment>
 
 </navigation>
