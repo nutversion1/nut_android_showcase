@@ -20,6 +20,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="June 21st is the day in 1940 that France signs an armistice with Germany at Compiègne." />
 
+    <RadioGroup
+        android:id="@+id/category_radio_group"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/generate_button">
+
+        <RadioButton
+            android:id="@+id/date_radio_button"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="date"
+            android:text="Date"/>
+        <RadioButton
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="math"
+            android:text="Math"/>
+        <RadioButton
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="trivia"
+            android:text="Trivia"/>
+        <RadioButton
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="year"
+            android:text="Year"/>
+    </RadioGroup>
+
     <Button
         android:id="@+id/generate_button"
         android:layout_width="wrap_content"

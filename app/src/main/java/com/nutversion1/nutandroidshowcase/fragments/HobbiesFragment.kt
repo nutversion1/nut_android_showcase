@@ -28,15 +28,9 @@ class HobbiesFragment : Fragment() {
 
         view.findViewById<RadioGroup>(R.id.category_radio_group).check(R.id.none_radio_button)
 
-        view.findViewById<RadioGroup>(R.id.category_radio_group).setOnClickListener{
-            Log.d("myDebug", "click: ${it.tag}")
-        }
-
         view.findViewById<Button>(R.id.generate_button)?.setOnClickListener {
             val radioGroup = view.findViewById<RadioGroup>(R.id.category_radio_group)
             val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-
-            Log.d("myDebug", "click: ${radioButton.tag}")
 
             val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
 
