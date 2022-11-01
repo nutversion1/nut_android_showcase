@@ -60,4 +60,22 @@ object ApiManager {
             .client(okHttpClient)
             .build().create(NumbersService::class.java)
     }
+
+    fun getProgrammingMemesService(): ProgrammingMemesService {
+        val okHttpClient = OkHttpClient.Builder().apply {
+            addInterceptor(
+                Interceptor { chain ->
+                    val builder = chain.request().newBuilder()
+                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
+                    return@Interceptor chain.proceed(builder.build())
+                }
+            )
+        }.build()
+
+        return Retrofit.Builder()
+            .baseUrl("https://programming-memes-reddit.p.rapidapi.com/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(okHttpClient)
+            .build().create(ProgrammingMemesService::class.java)
+    }
 }

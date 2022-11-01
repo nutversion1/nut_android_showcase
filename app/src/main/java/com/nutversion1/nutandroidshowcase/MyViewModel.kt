@@ -3,6 +3,7 @@ package com.nutversion1.nutandroidshowcase
 import android.util.Log
 import androidx.lifecycle.*
 import com.nutversion1.nutandroidshowcase.api.ApiManager
+import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
 import com.nutversion1.nutandroidshowcase.api.responses.GetNumbersResponse
 import com.nutversion1.nutandroidshowcase.api.responses.GetRandomHobbyResponse
 import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
@@ -12,6 +13,7 @@ class MyViewModel : ViewModel() {
     val randomQuote = MutableLiveData<GetRandomQuoteResponse>()
     val getRandomHobbyResponse = MutableLiveData<GetRandomHobbyResponse>()
     val getNumbersResponse = MutableLiveData<GetNumbersResponse>()
+    val getMemesResponse = MutableLiveData<List<GetMemesResponse>>()
 
     fun getRandomQuote(){
         viewModelScope.launch {
@@ -64,6 +66,15 @@ class MyViewModel : ViewModel() {
             Log.d("myDebug", "result: ${result.body()}")
 
             getNumbersResponse.postValue(result.body())
+        }
+    }
+
+    fun getMemes(){
+        viewModelScope.launch {
+            val result = ApiManager.getProgrammingMemesService().getMemes()
+            Log.d("myDebug", "result: ${result.body()}")
+
+            getMemesResponse.postValue(result.body())
         }
     }
 
