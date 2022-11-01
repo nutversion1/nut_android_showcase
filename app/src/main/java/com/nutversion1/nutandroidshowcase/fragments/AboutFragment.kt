@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.FragmentAboutBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 class AboutFragment : Fragment() {
+    private lateinit var binding: FragmentAboutBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        binding = FragmentAboutBinding.inflate(inflater)
+
+        return binding.root
     }
 }

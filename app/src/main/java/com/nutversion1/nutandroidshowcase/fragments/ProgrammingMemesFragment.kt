@@ -11,20 +11,27 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.FragmentAboutBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 
 class ProgrammingMemesFragment : Fragment() {
+    private lateinit var binding: FragmentProgrammingMemesBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_programming_memes, container, false)
+        binding = FragmentProgrammingMemesBinding.inflate(inflater)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.generate_button)?.setOnClickListener {
+        binding.generateButton.setOnClickListener {
             val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
             viewModel.getMemes()
         }

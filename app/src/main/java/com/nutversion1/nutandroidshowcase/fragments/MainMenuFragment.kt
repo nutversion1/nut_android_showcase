@@ -10,10 +10,16 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.FragmentMainMenuBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 class MainMenuFragment : Fragment() {
+    private lateinit var binding: FragmentMainMenuBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main_menu, container, false)
+        binding = FragmentMainMenuBinding.inflate(inflater)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

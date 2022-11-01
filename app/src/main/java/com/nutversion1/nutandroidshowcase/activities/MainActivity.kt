@@ -6,13 +6,19 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.ActivityMainBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentAboutBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     private var doubleBackToExitPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
 //    override fun onBackPressed() {

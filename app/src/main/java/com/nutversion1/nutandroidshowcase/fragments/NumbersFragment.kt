@@ -13,25 +13,30 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.FragmentNumbersBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 
 class NumbersFragment : Fragment() {
+    private lateinit var binding: FragmentNumbersBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_numbers, container, false)
+        binding = FragmentNumbersBinding.inflate(inflater)
+
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<RadioGroup>(R.id.category_radio_group).check(R.id.date_radio_button)
+        binding.categoryRadioGroup.check(R.id.date_radio_button)
 
         view.findViewById<Button>(R.id.generate_button)?.setOnClickListener {
-            val radioGroup = view.findViewById<RadioGroup>(R.id.category_radio_group)
-            val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+            val radioButton = binding.categoryRadioGroup.findViewById<RadioButton>(binding.categoryRadioGroup.checkedRadioButtonId)
 
             val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
 
@@ -45,7 +50,7 @@ class NumbersFragment : Fragment() {
 
         val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
         viewModel.getNumbersResponse.observe(viewLifecycleOwner) {
-            view.findViewById<TextView>(R.id.content_text)?.text =
+            binding.contentText.text =
                 """
                    Number: ${it.number}
                    

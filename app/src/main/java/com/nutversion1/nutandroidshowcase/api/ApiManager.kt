@@ -3,6 +3,7 @@ package com.nutversion1.nutandroidshowcase.api
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
@@ -20,7 +21,7 @@ object ApiManager {
 
         return Retrofit.Builder()
             .baseUrl("https://quotes15.p.rapidapi.com/")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build().create(RandomQuoteService::class.java)
     }

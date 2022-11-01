@@ -11,28 +11,33 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 
 class RandomQuoteFragment : Fragment() {
+    private lateinit var binding: FragmentRandomQuoteBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_random_quote, container, false)
+        binding = FragmentRandomQuoteBinding.inflate(inflater)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.generate_button)?.setOnClickListener {
+        binding.generateButton.setOnClickListener {
             val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
             viewModel.getRandomQuote()
         }
 
         val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
         viewModel.randomQuote.observe(viewLifecycleOwner) {
-            view.findViewById<TextView>(R.id.content_text)?.text = it.content
-            view.findViewById<TextView>(R.id.name_text)?.text = it.originator.name
+            binding.contentText.text = it.content
+            binding.nameText.text = it.originator.name
         }
     }
 }

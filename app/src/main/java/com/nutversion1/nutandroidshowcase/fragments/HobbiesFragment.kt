@@ -13,24 +13,29 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.databinding.FragmentFunWithApiBinding
+import com.nutversion1.nutandroidshowcase.databinding.FragmentHobbiesBinding
 
 
 class HobbiesFragment : Fragment() {
+    private lateinit var binding: FragmentHobbiesBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_hobbies, container, false)
+        binding = FragmentHobbiesBinding.inflate(inflater)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<RadioGroup>(R.id.category_radio_group).check(R.id.none_radio_button)
+        binding.categoryRadioGroup.check(R.id.none_radio_button)
 
-        view.findViewById<Button>(R.id.generate_button)?.setOnClickListener {
-            val radioGroup = view.findViewById<RadioGroup>(R.id.category_radio_group)
-            val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+        binding.generateButton.setOnClickListener {
+            val radioButton = binding.categoryRadioGroup.findViewById<RadioButton>(binding.categoryRadioGroup.checkedRadioButtonId)
 
             val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
 
@@ -42,9 +47,9 @@ class HobbiesFragment : Fragment() {
 
         val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
         viewModel.getRandomHobbyResponse.observe(viewLifecycleOwner) {
-            view.findViewById<TextView>(R.id.hobby_text)?.text = it.hobby
-            view.findViewById<TextView>(R.id.link_text)?.text = it.link
-            view.findViewById<TextView>(R.id.category_text)?.text = it.category
+            binding.hobbyText.text = it.hobby
+            binding.linkText.text = it.link
+            binding.categoryText.text = it.category
         }
     }
 }
