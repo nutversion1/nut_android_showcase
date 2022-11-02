@@ -45,7 +45,7 @@ class TranslateFragment : Fragment() {
             val target = when(source){
                 "en" -> "th"
                 "th" -> "en"
-                else -> "error"
+                else -> "th"
             }
 
             val request = TranslateRequest(
