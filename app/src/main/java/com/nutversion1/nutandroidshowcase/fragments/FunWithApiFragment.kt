@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.Navigation
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFunWithApiBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBinding
 
 class FunWithApiFragment : Fragment() {
     private lateinit var binding: FragmentFunWithApiBinding
@@ -35,8 +33,8 @@ class FunWithApiFragment : Fragment() {
             Navigation.createNavigateOnClickListener(R.id.go_to_numbers_fragment_action)
         )
 
-        binding.imdbButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.go_to_imdb_fragment_action)
+        binding.translateButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.go_to_translate_fragment_action)
         )
 
         binding.programmingMemesButton.setOnClickListener(

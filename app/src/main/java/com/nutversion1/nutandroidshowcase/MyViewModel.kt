@@ -3,17 +3,22 @@ package com.nutversion1.nutandroidshowcase
 import android.util.Log
 import androidx.lifecycle.*
 import com.nutversion1.nutandroidshowcase.api.ApiManager
-import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
-import com.nutversion1.nutandroidshowcase.api.responses.GetNumbersResponse
-import com.nutversion1.nutandroidshowcase.api.responses.GetRandomHobbyResponse
-import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
+import com.nutversion1.nutandroidshowcase.api.requests.DetectLanguageRequest
+import com.nutversion1.nutandroidshowcase.api.requests.TranslateRequest
+import com.nutversion1.nutandroidshowcase.api.responses.*
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
     val randomQuote = MutableLiveData<GetRandomQuoteResponse>()
+
     val getRandomHobbyResponse = MutableLiveData<GetRandomHobbyResponse>()
+
     val getNumbersResponse = MutableLiveData<GetNumbersResponse>()
+
     val getMemesResponse = MutableLiveData<List<GetMemesResponse>>()
+
+    val translateResponse = MutableLiveData<TranslateResponse>()
+    val detectLanguageResponse = MutableLiveData<DetectLanguageResponse>()
 
     fun getRandomQuote(){
         viewModelScope.launch {
@@ -75,6 +80,24 @@ class MyViewModel : ViewModel() {
             Log.d("myDebug", "result: ${result.body()}")
 
             getMemesResponse.postValue(result.body())
+        }
+    }
+
+    fun translate(translateRequest: TranslateRequest){
+        viewModelScope.launch {
+            val result = ApiManager.getTranslateService().translate(translateRequest)
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            translateResponse.postValue(result.body())
+        }
+    }
+
+    fun detectLanguage(detectLanguageRequest: DetectLanguageRequest){
+        viewModelScope.launch {
+            val result = ApiManager.getTranslateService().detectLanguage(detectLanguageRequest)
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            detectLanguageResponse.postValue(result.body())
         }
     }
 

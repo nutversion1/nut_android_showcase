@@ -37,8 +37,8 @@
             app:destination="@id/numbers_fragment">
         </action>
         <action
-            android:id="@+id/go_to_imdb_fragment_action"
-            app:destination="@id/imdb_fragment">
+            android:id="@+id/go_to_translate_fragment_action"
+            app:destination="@id/translate_fragment">
         </action>
         <action
             android:id="@+id/go_to_programming_memes_fragment_action"
@@ -67,9 +67,9 @@
         tools:layout="@layout/fragment_numbers">
     </fragment>
     <fragment
-        android:id="@+id/imdb_fragment"
-        android:name="com.nutversion1.nutandroidshowcase.fragments.ImdbFragment"
-        tools:layout="@layout/fragment_imdb">
+        android:id="@+id/translate_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.TranslateFragment"
+        tools:layout="@layout/fragment_translate">
     </fragment>
     <fragment
         android:id="@+id/programming_memes_fragment"

@@ -27,8 +27,8 @@
         />
 
     <Button
-        android:id="@+id/imdb_button"
-        android:text="IMDB"
+        android:id="@+id/translate_button"
+        android:text="Translate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

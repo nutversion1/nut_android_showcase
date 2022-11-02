@@ -26,8 +26,6 @@ class MemeAdapter() : RecyclerView.Adapter<MemeAdapter.MemeViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: MemeViewHolder, position: Int) {
-
-
         holder.bindData(memes[position])
     }
 
