@@ -98,4 +98,22 @@ object ApiManager {
             .client(okHttpClient)
             .build().create(TranslateService::class.java)
     }
+
+    fun getAztroService(): AztroService {
+        val okHttpClient = OkHttpClient.Builder().apply {
+            addInterceptor(
+                Interceptor { chain ->
+                    val builder = chain.request().newBuilder()
+                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
+                    return@Interceptor chain.proceed(builder.build())
+                }
+            )
+        }.build()
+
+        return Retrofit.Builder()
+            .baseUrl("https://sameer-kumar-aztro-v1.p.rapidapi.com/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(okHttpClient)
+            .build().create(AztroService::class.java)
+    }
 }

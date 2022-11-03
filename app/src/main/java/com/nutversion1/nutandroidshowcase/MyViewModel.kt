@@ -20,6 +20,8 @@ class MyViewModel : ViewModel() {
     val translateResponse = MutableLiveData<TranslateResponse>()
     val detectLanguageResponse = MutableLiveData<DetectLanguageResponse>()
 
+    val fetchHoroscopeInformationResponse = MutableLiveData<FetchHoroscopeInformationResponse>()
+
     fun getRandomQuote(){
         viewModelScope.launch {
             val result = ApiManager.getRandomQuoteService().getRandomQuote()
@@ -98,6 +100,15 @@ class MyViewModel : ViewModel() {
             Log.d("myDebug", "result: $result ${result.body()}")
 
             detectLanguageResponse.postValue(result.body())
+        }
+    }
+
+    fun fetchHoroscopeInformation(sign: String, day: String){
+        viewModelScope.launch {
+            val result = ApiManager.getAztroService().fetchHoroscopeInformation(sign, day)
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            fetchHoroscopeInformationResponse.postValue(result.body())
         }
     }
 

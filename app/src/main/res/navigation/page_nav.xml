@@ -44,6 +44,10 @@
             android:id="@+id/go_to_programming_memes_fragment_action"
             app:destination="@id/programming_memes_fragment">
         </action>
+        <action
+            android:id="@+id/go_to_aztro_fragment_action"
+            app:destination="@id/aztro_fragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -75,6 +79,11 @@
         android:id="@+id/programming_memes_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.ProgrammingMemesFragment"
         tools:layout="@layout/fragment_programming_memes">
+    </fragment>
+    <fragment
+        android:id="@+id/aztro_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.AztroFragment"
+        tools:layout="@layout/fragment_aztro">
     </fragment>
 
 </navigation>

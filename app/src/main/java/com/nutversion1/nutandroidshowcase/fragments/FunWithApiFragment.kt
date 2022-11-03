@@ -40,5 +40,9 @@ class FunWithApiFragment : Fragment() {
         binding.programmingMemesButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.go_to_programming_memes_fragment_action)
         )
+
+        binding.aztroButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.go_to_aztro_fragment_action)
+        )
     }
 }
