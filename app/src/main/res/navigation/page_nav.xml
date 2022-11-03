@@ -48,6 +48,10 @@
             android:id="@+id/go_to_aztro_fragment_action"
             app:destination="@id/aztro_fragment">
         </action>
+        <action
+            android:id="@+id/go_to_youtube_search_fragment_action"
+            app:destination="@id/youtube_search_fragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -84,6 +88,11 @@
         android:id="@+id/aztro_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.AztroFragment"
         tools:layout="@layout/fragment_aztro">
+    </fragment>
+    <fragment
+        android:id="@+id/youtube_search_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.YoutubeSearchFragment"
+        tools:layout="@layout/fragment_youtube_search">
     </fragment>
 
 </navigation>

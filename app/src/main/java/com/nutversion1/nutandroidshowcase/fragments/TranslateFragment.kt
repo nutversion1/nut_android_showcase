@@ -41,6 +41,10 @@ class TranslateFragment : Fragment() {
         }
 
         viewModel.detectLanguageResponse.observe(viewLifecycleOwner) {
+            if(binding.inputEditText.text.isBlank()){
+                return@observe
+            }
+
             val source = it.data?.detections?.firstOrNull()?.language
             val target = when(source){
                 "en" -> "th"

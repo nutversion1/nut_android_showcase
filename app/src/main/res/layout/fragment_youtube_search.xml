@@ -29,14 +29,12 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
     <TextView
-        android:id="@+id/result_text"
+        android:id="@+id/url_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoLink="web"
         android:hint="Result..."
+        android:autoLink="web"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="25dp"
@@ -47,11 +45,11 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
-        android:id="@+id/translate_button"
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Translate"
+        android:text="Search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -44,5 +44,9 @@ class FunWithApiFragment : Fragment() {
         binding.aztroButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.go_to_aztro_fragment_action)
         )
+
+        binding.youtubeSearchButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.go_to_youtube_search_fragment_action)
+        )
     }
 }

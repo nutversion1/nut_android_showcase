@@ -22,6 +22,8 @@ class MyViewModel : ViewModel() {
 
     val fetchHoroscopeInformationResponse = MutableLiveData<FetchHoroscopeInformationResponse>()
 
+    val youtubeSearchResponse = MutableLiveData<YoutubeSearchResponse>()
+
     fun getRandomQuote(){
         viewModelScope.launch {
             val result = ApiManager.getRandomQuoteService().getRandomQuote()
@@ -109,6 +111,15 @@ class MyViewModel : ViewModel() {
             Log.d("myDebug", "result: $result ${result.body()}")
 
             fetchHoroscopeInformationResponse.postValue(result.body())
+        }
+    }
+
+    fun youtubeSearch(query: String){
+        viewModelScope.launch {
+            val result = ApiManager.getYoutubeSearchService().search(query)
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            youtubeSearchResponse.postValue(result.body())
         }
     }
 
