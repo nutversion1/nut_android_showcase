@@ -29,6 +29,7 @@
         android:padding="12dp"
         android:textSize="20dp"
         android:gravity="center"
+        android:autoLink="web"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hobby_text"

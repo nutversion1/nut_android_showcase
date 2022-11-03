@@ -28,18 +28,17 @@ class AztroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.categoryRadioGroup.check(R.id.none_radio_button)
+        binding.signRadioGroup.check(R.id.aries_radio_button)
+        binding.dayRadioGroup.check(R.id.today_radio_button)
 
         binding.generateButton.setOnClickListener {
-            viewModel.fetchHoroscopeInformation("cancer", "today")
-//            val radioButton = binding.categoryRadioGroup.findViewById<RadioButton>(binding.categoryRadioGroup.checkedRadioButtonId)
-//
-//            val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
-//
-//            when(radioButton.tag){
-//                "none" -> viewModel.getRandomHobby()
-//                else -> viewModel.getRandomHobby(radioButton.tag.toString())
-//            }
+            val selectedSignButton = binding.signRadioGroup.findViewById<RadioButton>(binding.signRadioGroup.checkedRadioButtonId)
+            val selectedDayButton = binding.dayRadioGroup.findViewById<RadioButton>(binding.dayRadioGroup.checkedRadioButtonId)
+
+            val sign = selectedSignButton.tag.toString()
+            val day = selectedDayButton.tag.toString()
+
+            viewModel.fetchHoroscopeInformation(sign, day)
         }
 
         val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}

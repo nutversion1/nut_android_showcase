@@ -21,22 +21,22 @@
         tools:text="Jun 22 - Jul 22" />
 
     <ScrollView
+        android:id="@+id/sign_scroll_view"
         android:fadeScrollbars="false"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="200dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/info_text"
         app:layout_constraintBottom_toTopOf="@id/generate_button">
 
         <RadioGroup
-            android:id="@+id/category_radio_group"
+            android:id="@+id/sign_radio_group"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RadioButton
-                android:id="@+id/none_radio_button"
+                android:id="@+id/aries_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="Aries"
@@ -99,6 +99,36 @@
         </RadioGroup>
 
     </ScrollView>
+
+    <RadioGroup
+        android:id="@+id/day_radio_group"
+        android:orientation="vertical"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/sign_scroll_view"
+        app:layout_constraintBottom_toBottomOf="@id/sign_scroll_view">
+
+        <RadioButton
+            android:id="@+id/today_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Today"
+            android:text="Today"/>
+        <RadioButton
+            android:id="@+id/tomorrow_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Tomorrow"
+            android:text="Tomorrow"/>
+        <RadioButton
+            android:id="@+id/yesterday_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Yesterday"
+            android:text="Yesterday"/>
+    </RadioGroup>
+
 
 
 
