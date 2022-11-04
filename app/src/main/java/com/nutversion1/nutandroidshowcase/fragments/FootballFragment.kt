@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamHeaderAdapter
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamListAdapter
@@ -38,11 +40,33 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
 
         binding.teamList.adapter =  footballTeamListAdapter //ConcatAdapter(footballTeamHeaderAdapter, footballTeamListAdapter)
 
-        viewModel.getPremierLeagueTable()
-
         viewModel.leagueTableResponse.observe(viewLifecycleOwner) {
             footballTeamListAdapter.setData(it)
         }
+
+        viewModel.getPremierLeagueTable()
+
+        binding.leagueTab.addOnTabSelectedListener(object : OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                viewModel.run{
+                    when(tab?.position){
+                        0 -> getPremierLeagueTable()
+                        1 -> getLaligaTable()
+                        2 -> getSerieATable()
+                        3 -> getBundesligaTable()
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
     }
 
     override fun onClick(position: Int, itemView: View, leagueTableResponse: GetLeagueTableResponse) {
