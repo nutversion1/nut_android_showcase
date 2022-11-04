@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
 
-class MemeAdapter() : RecyclerView.Adapter<MemeAdapter.MemeViewHolder>(){
+class MemeAdapter : RecyclerView.Adapter<MemeAdapter.MemeViewHolder>(){
     private val memes = mutableListOf<GetMemesResponse>()
 
     fun setData(memes: List<GetMemesResponse>){

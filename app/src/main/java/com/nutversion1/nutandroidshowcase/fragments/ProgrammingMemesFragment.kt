@@ -13,6 +13,7 @@ import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBi
 
 class ProgrammingMemesFragment : Fragment() {
     private lateinit var binding: FragmentProgrammingMemesBinding
+    private val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +35,6 @@ class ProgrammingMemesFragment : Fragment() {
             viewModel.getMemes()
         }
 
-        val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
         viewModel.getMemesResponse.observe(viewLifecycleOwner) {
             memeAdapter.setData(it)
         }

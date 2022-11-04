@@ -29,6 +29,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/youtube_list"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_wrapper"
+        app:layout_constraintBottom_toTopOf="@id/search_button"
+        app:spanCount="1"
+        tools:listitem="@layout/view_youtube_item" />
+
     <TextView
         android:id="@+id/url_text"
         android:layout_width="match_parent"
@@ -39,6 +53,7 @@
         android:textColor="@color/black"
         android:textSize="25dp"
         android:layout_margin="20dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

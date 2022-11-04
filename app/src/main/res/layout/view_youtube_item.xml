@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="100"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/video_image"
+        android:layout_weight="45"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:padding="1dp"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/video_title"
+        android:layout_weight="55"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:padding="1dp"
+        android:autoLink="web"
+        tools:text="Lionel Messi vs Juventus / UCL (Home) - 1080i" />
+
+</LinearLayout>
