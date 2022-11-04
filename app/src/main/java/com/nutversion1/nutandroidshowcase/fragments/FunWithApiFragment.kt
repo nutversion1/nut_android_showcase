@@ -48,5 +48,9 @@ class FunWithApiFragment : Fragment() {
         binding.youtubeSearchButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.go_to_youtube_search_fragment_action)
         )
+
+        binding.footballButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.go_to_football_fragment_action)
+        )
     }
 }

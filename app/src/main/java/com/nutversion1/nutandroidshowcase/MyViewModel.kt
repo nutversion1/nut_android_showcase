@@ -24,6 +24,8 @@ class MyViewModel : ViewModel() {
 
     val youtubeSearchResponse = MutableLiveData<YoutubeSearchResponse>()
 
+    val leagueTableResponse = MutableLiveData<List<GetLeagueTableResponse>>()
+
     fun getRandomQuote(){
         viewModelScope.launch {
             val result = ApiManager.getRandomQuoteService().getRandomQuote()
@@ -120,6 +122,42 @@ class MyViewModel : ViewModel() {
             Log.d("myDebug", "result: $result ${result.body()}")
 
             youtubeSearchResponse.postValue(result.body())
+        }
+    }
+
+    fun getPremierLeagueTable(){
+        viewModelScope.launch {
+            val result = ApiManager.getFootballService().getPremierLeagueTable()
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            leagueTableResponse.postValue(result.body())
+        }
+    }
+
+    fun getLaligaTable(){
+        viewModelScope.launch {
+            val result = ApiManager.getFootballService().getLaligaTable()
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            leagueTableResponse.postValue(result.body())
+        }
+    }
+
+    fun getSerieATable(){
+        viewModelScope.launch {
+            val result = ApiManager.getFootballService().getSerieATable()
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            leagueTableResponse.postValue(result.body())
+        }
+    }
+
+    fun getBundesligaTable(){
+        viewModelScope.launch {
+            val result = ApiManager.getFootballService().getBundesligaTable()
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            leagueTableResponse.postValue(result.body())
         }
     }
 

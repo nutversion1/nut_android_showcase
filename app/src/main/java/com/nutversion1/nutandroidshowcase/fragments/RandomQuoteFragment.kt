@@ -16,6 +16,7 @@ import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
+    private val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +31,6 @@ class RandomQuoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.generateButton.setOnClickListener {
-            val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
             viewModel.getRandomQuote()
         }
 

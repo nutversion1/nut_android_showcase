@@ -52,6 +52,10 @@
             android:id="@+id/go_to_youtube_search_fragment_action"
             app:destination="@id/youtube_search_fragment">
         </action>
+        <action
+            android:id="@+id/go_to_football_fragment_action"
+            app:destination="@id/football_fragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -93,6 +97,11 @@
         android:id="@+id/youtube_search_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.YoutubeSearchFragment"
         tools:layout="@layout/fragment_youtube_search">
+    </fragment>
+    <fragment
+        android:id="@+id/football_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.FootballFragment"
+        tools:layout="@layout/fragment_football">
     </fragment>
 
 </navigation>

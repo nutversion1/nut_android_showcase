@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="100"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/position_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="1" />
+
+    <LinearLayout
+        android:id="@+id/team_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:weightSum="100"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/team_image"
+            android:layout_weight="30"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/team_name_text"
+            android:layout_weight="70"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            tools:text="Arsenal" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/played_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/wins_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/draws_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/losses_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/goals_difference_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/points_text"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="10" />
+
+</LinearLayout>
