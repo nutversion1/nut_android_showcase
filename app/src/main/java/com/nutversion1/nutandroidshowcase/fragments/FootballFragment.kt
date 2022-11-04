@@ -42,6 +42,7 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
 
         viewModel.leagueTableResponse.observe(viewLifecycleOwner) {
             footballTeamListAdapter.setData(it)
+            binding.teamList.scrollToPosition(0)
         }
 
         viewModel.getPremierLeagueTable()
