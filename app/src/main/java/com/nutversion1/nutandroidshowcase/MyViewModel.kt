@@ -173,9 +173,9 @@ class MyViewModel : ViewModel() {
         }
     }
 
-    fun getFreeGameDetail(){
+    fun getFreeGameDetail(id: Int){
         viewModelScope.launch {
-            val result = ApiManager.getFreeGamesService().getFreeGameDetail(1)
+            val result = ApiManager.getFreeGamesService().getFreeGameDetail(id)
             Log.d("myDebug", "result: $result ${result.body()}")
 
             getFreeGameDetailResponse.postValue(result.body())

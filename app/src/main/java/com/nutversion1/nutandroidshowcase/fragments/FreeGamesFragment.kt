@@ -88,6 +88,9 @@ class FreeGamesFragment : Fragment() {
     }
 
     private fun openFreeGameDetailFragment(id: Int){
-        findNavController().navigate(R.id.go_to_free_game_detail_fragment_action)
+        val bundle = Bundle()
+        bundle.putInt("id", id)
+
+        findNavController().navigate(R.id.go_to_free_game_detail_fragment_action, bundle)
     }
 }

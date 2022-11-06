@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.FreeGameDetailFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".fragments.FreeGameDetailFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/title_text"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Temperia: Soul of Majestic" />
+
+        <ImageView
+            android:id="@+id/title_image"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:padding="10dp"
+            android:textStyle="bold|italic"
+            android:id="@+id/short_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Fans of collectible card games, are you looking for something a bit different from the normal fare? Then a peek at Moonwolf Entertainment and A2 Softworks’ Temperia: Soul of Majestic might be in order." />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Fans of collectible card games, are you looking for something a bit different from the normal fare? Then a peek at Moonwolf Entertainment and A2 Softworks’ Temperia: Soul of Majestic might be in order. The strategy card game uses an open-handed game style where all cards are face up and combines two decks into one. The decks are made up of 20 Creature and 20 Equipment cards. The game is designed to focus on player skill rather than the luck of the draw and takes inspiration from chess where everything is on display. Good players will be able to use this to their advantage when determining strategies. The game limits randomness and its impact on the game. Time and again, players will need to prove their skills in order to climb the leaderboard." />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/game_url_text"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            tools:text="GAME URL: https://www.freetogame.com/open/temperia" />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/genre_text"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="GENRE: Card Game" />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/platform_text"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="PLATFORM: Windows" />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/developer_text"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="DEVELOPER: MoonWolf Entertainment, A2 Softwork" />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/publisher_text"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="PUBLISHER: Leonardo Interactive" />
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/release_date_text"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="RELEASE DATE: 2022-07-26" />
+
+    </LinearLayout>
+</ScrollView>
+
+
