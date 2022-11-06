@@ -30,11 +30,12 @@ class RandomQuoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.generateButton.setOnClickListener {
+        viewModel.getRandomQuote()
+        
+        binding.nextButton.setOnClickListener {
             viewModel.getRandomQuote()
         }
 
-        val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
         viewModel.randomQuote.observe(viewLifecycleOwner) {
             binding.contentText.text = it.content
             binding.nameText.text = it.originator.name

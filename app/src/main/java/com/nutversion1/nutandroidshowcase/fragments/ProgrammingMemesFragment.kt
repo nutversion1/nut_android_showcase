@@ -30,9 +30,12 @@ class ProgrammingMemesFragment : Fragment() {
         val memeAdapter = MemeAdapter()
         binding.memeList.adapter = memeAdapter
 
-        binding.generateButton.setOnClickListener {
+        viewModel.getMemes()
+
+        binding.refreshButton.setOnClickListener {
             val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
             viewModel.getMemes()
+            binding.memeList.scrollToPosition(0)
         }
 
         viewModel.getMemesResponse.observe(viewLifecycleOwner) {
