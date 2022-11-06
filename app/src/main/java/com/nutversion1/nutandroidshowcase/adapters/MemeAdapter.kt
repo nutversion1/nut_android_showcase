@@ -47,7 +47,6 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.MemeViewHolder>(){
 
             Glide.with(itemView.context)
                 .load(meme.link)
-                .placeholder(R.mipmap.ic_launcher)
                 .fitCenter()
                 .into(memeImage)
         }

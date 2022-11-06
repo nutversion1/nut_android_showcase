@@ -54,7 +54,6 @@ class YoutubeAdapter(val itemClickListener: ItemClickListener) : RecyclerView.Ad
 
             Glide.with(itemView.context)
                 .load(youtube.thumbnail.url)
-                .placeholder(R.mipmap.ic_launcher)
                 .fitCenter()
                 .into(videoImage)
         }

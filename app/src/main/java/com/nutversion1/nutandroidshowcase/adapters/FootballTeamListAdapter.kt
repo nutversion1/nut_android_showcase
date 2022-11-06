@@ -91,7 +91,6 @@ class FootballTeamListAdapter(val itemClickListener: ItemClickListener) : Recycl
 
             Glide.with(itemView.context)
                 .load(team.squadLogo)
-                .placeholder(R.mipmap.ic_launcher)
                 .fitCenter()
                 .into(teamImage)
         }
