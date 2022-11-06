@@ -152,4 +152,22 @@ object ApiManager {
             .client(okHttpClient)
             .build().create(FootballService::class.java)
     }
+
+    fun getFreeGamesService(): FreeGamesService {
+        val okHttpClient = OkHttpClient.Builder().apply {
+            addInterceptor(
+                Interceptor { chain ->
+                    val builder = chain.request().newBuilder()
+                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
+                    return@Interceptor chain.proceed(builder.build())
+                }
+            )
+        }.build()
+
+        return Retrofit.Builder()
+            .baseUrl("https://free-to-play-games-database.p.rapidapi.com/api/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(okHttpClient)
+            .build().create(FreeGamesService::class.java)
+    }
 }

@@ -52,5 +52,9 @@ class FunWithApiFragment : Fragment() {
         binding.footballButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.go_to_football_fragment_action)
         )
+
+        binding.freeGamesButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.go_to_free_games_action)
+        )
     }
 }

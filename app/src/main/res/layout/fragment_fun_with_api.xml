@@ -1,65 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/random_quote_button"
-        android:text="Random Quote"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/hobbies_button"
-        android:text="Hobbies"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/random_quote_button"
+            android:text="Random Quote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <Button
-        android:id="@+id/numbers_button"
-        android:text="Numbers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/hobbies_button"
+            android:text="Hobbies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <Button
-        android:id="@+id/translate_button"
-        android:text="Translate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/numbers_button"
+            android:text="Numbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <Button
-        android:id="@+id/programming_memes_button"
-        android:text="Programming Memes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/translate_button"
+            android:text="Translate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <Button
-        android:id="@+id/aztro_button"
-        android:text="Aztro Horoscope"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/programming_memes_button"
+            android:text="Programming Memes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <Button
-        android:id="@+id/youtube_search_button"
-        android:text="Youtube Search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/aztro_button"
+            android:text="Aztro Horoscope"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <Button
-        android:id="@+id/football_button"
-        android:text="Football"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <Button
+            android:id="@+id/youtube_search_button"
+            android:text="Youtube Search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/football_button"
+            android:text="Football"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:id="@+id/free_games_button"
+            android:text="Free Games"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

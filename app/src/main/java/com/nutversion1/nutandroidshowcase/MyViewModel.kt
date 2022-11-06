@@ -26,6 +26,9 @@ class MyViewModel : ViewModel() {
 
     val leagueTableResponse = MutableLiveData<List<GetLeagueTableResponse>>()
 
+    val getFreeGamesResponse = MutableLiveData<List<GetFreeGamesResponse>>()
+    val getFreeGameDetailResponse = MutableLiveData<GetFreeGameDetailResponse>()
+
     fun getRandomQuote(){
         viewModelScope.launch {
             val result = ApiManager.getRandomQuoteService().getRandomQuote()
@@ -158,6 +161,24 @@ class MyViewModel : ViewModel() {
             Log.d("myDebug", "result: $result ${result.body()}")
 
             leagueTableResponse.postValue(result.body())
+        }
+    }
+
+    fun getFreeGames(platform: String? = null, category: String? = null, sortBy: String? = null){
+        viewModelScope.launch {
+            val result = ApiManager.getFreeGamesService().getFreeGames(platform, category, sortBy)
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            getFreeGamesResponse.postValue(result.body())
+        }
+    }
+
+    fun getFreeGameDetail(){
+        viewModelScope.launch {
+            val result = ApiManager.getFreeGamesService().getFreeGameDetail(1)
+            Log.d("myDebug", "result: $result ${result.body()}")
+
+            getFreeGameDetailResponse.postValue(result.body())
         }
     }
 
