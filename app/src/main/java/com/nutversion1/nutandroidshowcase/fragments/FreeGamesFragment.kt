@@ -8,16 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.adapters.FreeGameListAdapter
 import com.nutversion1.nutandroidshowcase.adapters.MemeAdapter
+import com.nutversion1.nutandroidshowcase.adapters.YoutubeAdapter
+import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGamesResponse
+import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
 import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBinding
 
 class FreeGamesFragment : Fragment() {
     private lateinit var binding: FragmentFreeGamesBinding
     private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+
+    private val freeGameListAdapter = FreeGameListAdapter(object : FreeGameListAdapter.ItemClickListener{
+        override fun onClick(position: Int, itemView: View, freeGame: GetFreeGamesResponse) {
+            Log.d("myDebug", "click $position ${freeGame.title} ${freeGame.id}")
+            openFreeGameDetailFragment(freeGame.id)
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +43,6 @@ class FreeGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val freeGameListAdapter = FreeGameListAdapter()
         binding.freeGameList.adapter = freeGameListAdapter
 
         binding.platformRadioGroup.check(R.id.all_platform_radio_button)
@@ -74,5 +85,9 @@ class FreeGamesFragment : Fragment() {
             category = category,
             sortBy = "release-date",
         )
+    }
+
+    private fun openFreeGameDetailFragment(id: Int){
+        findNavController().navigate(R.id.go_to_free_game_detail_fragment_action)
     }
 }

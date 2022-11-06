@@ -35,18 +35,18 @@ class YoutubeAdapter(val itemClickListener: ItemClickListener) : RecyclerView.Ad
     }
 
     inner class YoutubeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        init {
-            itemView.setOnClickListener{
-                itemClickListener.onClick(adapterPosition, itemView, youtubes[adapterPosition])
-            }
-        }
-
         private val videoImage: ImageView by lazy {
             itemView.findViewById(R.id.video_image)
         }
 
         private val videoTitle: TextView by lazy {
             itemView.findViewById(R.id.video_title)
+        }
+
+        init {
+            itemView.setOnClickListener{
+                itemClickListener.onClick(absoluteAdapterPosition, itemView, youtubes[absoluteAdapterPosition])
+            }
         }
 
         fun bindData(youtube: YoutubeSearchResult){

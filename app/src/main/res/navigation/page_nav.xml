@@ -111,6 +111,16 @@
         android:id="@+id/free_games_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.FreeGamesFragment"
         tools:layout="@layout/fragment_free_games">
+        <action
+            android:id="@+id/go_to_free_game_detail_fragment_action"
+            app:destination="@id/free_game_detail_fragment">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/free_game_detail_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.FreeGameDetailFragment"
+        tools:layout="@layout/fragment_free_game_detail">
     </fragment>
 
 </navigation>
