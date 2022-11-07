@@ -6,24 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nutversion1.nutandroidshowcase.api.ApiManager
-import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResponse
+import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
 import kotlinx.coroutines.launch
 
-class YoutubeSearchViewModel : ViewModel() {
-    val youtubeSearchResponse = MutableLiveData<YoutubeSearchResponse>()
+class ProgrammingMemesViewModel : ViewModel() {
+    val getMemesResponse = MutableLiveData<List<GetMemesResponse>>()
 
-    fun youtubeSearch(query: String){
+    fun getMemes(){
         viewModelScope.launch {
-            val result = ApiManager.getYoutubeSearchService().search(query)
-            Log.d("myDebug", "result: $result ${result.body()}")
+            val result = ApiManager.getProgrammingMemesService().getMemes()
+            Log.d("myDebug", "result: ${result.body()}")
 
-            youtubeSearchResponse.postValue(result.body())
+            getMemesResponse.postValue(result.body())
         }
     }
 
     class Factory : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return YoutubeSearchViewModel() as T
+            return ProgrammingMemesViewModel () as T
         }
     }
 }

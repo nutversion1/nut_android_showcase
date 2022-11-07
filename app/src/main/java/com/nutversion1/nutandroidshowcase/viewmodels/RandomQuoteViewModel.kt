@@ -6,24 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nutversion1.nutandroidshowcase.api.ApiManager
-import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResponse
+import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
 import kotlinx.coroutines.launch
 
-class YoutubeSearchViewModel : ViewModel() {
-    val youtubeSearchResponse = MutableLiveData<YoutubeSearchResponse>()
+class RandomQuoteViewModel : ViewModel() {
+    val randomQuote = MutableLiveData<GetRandomQuoteResponse>()
 
-    fun youtubeSearch(query: String){
+    fun getRandomQuote(){
         viewModelScope.launch {
-            val result = ApiManager.getYoutubeSearchService().search(query)
-            Log.d("myDebug", "result: $result ${result.body()}")
+            val result = ApiManager.getRandomQuoteService().getRandomQuote()
+            Log.d("myDebug", "result: ${result.body()}")
 
-            youtubeSearchResponse.postValue(result.body())
+            randomQuote.postValue(result.body())
         }
     }
 
     class Factory : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return YoutubeSearchViewModel() as T
+            return RandomQuoteViewModel() as T
         }
     }
 }

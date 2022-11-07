@@ -8,17 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.databinding.FragmentNumbersBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel
 
 
 class NumbersFragment : Fragment() {
     private lateinit var binding: FragmentNumbersBinding
+    private val numbersViewModel: NumbersViewModel by viewModels { NumbersViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,18 +36,15 @@ class NumbersFragment : Fragment() {
         view.findViewById<Button>(R.id.generate_button)?.setOnClickListener {
             val radioButton = binding.categoryRadioGroup.findViewById<RadioButton>(binding.categoryRadioGroup.checkedRadioButtonId)
 
-            val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
-
             when(radioButton.tag){
-                "date" -> viewModel.getRandomDateFact()
-                "math" -> viewModel.getRandomMathFact()
-                "trivia" -> viewModel.getRandomTriviaFact()
-                "year" -> viewModel.getRandomYearFact()
+                "date" -> numbersViewModel.getRandomDateFact()
+                "math" -> numbersViewModel.getRandomMathFact()
+                "trivia" -> numbersViewModel.getRandomTriviaFact()
+                "year" -> numbersViewModel.getRandomYearFact()
             }
         }
 
-        val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
-        viewModel.getNumbersResponse.observe(viewLifecycleOwner) {
+        numbersViewModel.getNumbersResponse.observe(viewLifecycleOwner) {
             binding.contentText.text =
                 """
                    Number: ${it.number}

@@ -1,22 +1,18 @@
 package com.nutversion1.nutandroidshowcase.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.nutversion1.nutandroidshowcase.MyViewModel
-import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
 
 
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
-    private val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
+    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels {RandomQuoteViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +26,13 @@ class RandomQuoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getRandomQuote()
+        randomQuoteViewModel.getRandomQuote()
         
         binding.nextButton.setOnClickListener {
-            viewModel.getRandomQuote()
+            randomQuoteViewModel.getRandomQuote()
         }
 
-        viewModel.randomQuote.observe(viewLifecycleOwner) {
+        randomQuoteViewModel.randomQuote.observe(viewLifecycleOwner) {
             binding.contentText.text = it.content
             binding.nameText.text = it.originator.name
         }

@@ -7,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.nutversion1.nutandroidshowcase.MyViewModel
-import com.nutversion1.nutandroidshowcase.R
-import com.nutversion1.nutandroidshowcase.adapters.FreeGameListAdapter
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGameDetailBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
 
 class FreeGameDetailFragment : Fragment() {

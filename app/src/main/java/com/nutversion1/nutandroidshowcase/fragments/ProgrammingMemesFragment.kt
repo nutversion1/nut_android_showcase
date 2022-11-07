@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.adapters.MemeAdapter
 import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.ProgrammingMemesViewModel
 
 
 class ProgrammingMemesFragment : Fragment() {
     private lateinit var binding: FragmentProgrammingMemesBinding
-    private val viewModel: MyViewModel by viewModels {MyViewModel.Factory()}
+    private val programmingMemesViewModel: ProgrammingMemesViewModel by viewModels {ProgrammingMemesViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,15 +30,14 @@ class ProgrammingMemesFragment : Fragment() {
         val memeAdapter = MemeAdapter()
         binding.memeList.adapter = memeAdapter
 
-        viewModel.getMemes()
+        programmingMemesViewModel.getMemes()
 
         binding.refreshButton.setOnClickListener {
-            val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
-            viewModel.getMemes()
+            programmingMemesViewModel.getMemes()
             binding.memeList.scrollToPosition(0)
         }
 
-        viewModel.getMemesResponse.observe(viewLifecycleOwner) {
+        programmingMemesViewModel.getMemesResponse.observe(viewLifecycleOwner) {
             memeAdapter.setData(it)
         }
     }

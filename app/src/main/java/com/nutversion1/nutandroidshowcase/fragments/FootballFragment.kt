@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.ConcatAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamHeaderAdapter
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamListAdapter
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse

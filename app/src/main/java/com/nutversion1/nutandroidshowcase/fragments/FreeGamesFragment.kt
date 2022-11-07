@@ -6,19 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.adapters.FreeGameListAdapter
-import com.nutversion1.nutandroidshowcase.adapters.MemeAdapter
-import com.nutversion1.nutandroidshowcase.adapters.YoutubeAdapter
 import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGamesResponse
-import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
 
 class FreeGamesFragment : Fragment() {

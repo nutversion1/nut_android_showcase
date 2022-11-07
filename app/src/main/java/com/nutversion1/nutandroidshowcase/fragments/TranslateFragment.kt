@@ -1,24 +1,19 @@
 package com.nutversion1.nutandroidshowcase.fragments
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
-import com.nutversion1.nutandroidshowcase.MyViewModel
-import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.api.requests.DetectLanguageRequest
 import com.nutversion1.nutandroidshowcase.api.requests.TranslateRequest
 import com.nutversion1.nutandroidshowcase.databinding.FragmentTranslateBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.TranslateViewModel
 
 class TranslateFragment : Fragment() {
     private lateinit var binding: FragmentTranslateBinding
-    private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+    private val translateViewModel: TranslateViewModel by viewModels { TranslateViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +32,10 @@ class TranslateFragment : Fragment() {
                 text = binding.inputEditText.text.toString(),
             )
 
-            viewModel.detectLanguage(request)
+            translateViewModel.detectLanguage(request)
         }
 
-        viewModel.detectLanguageResponse.observe(viewLifecycleOwner) {
+        translateViewModel.detectLanguageResponse.observe(viewLifecycleOwner) {
             if(binding.inputEditText.text.isBlank()){
                 return@observe
             }
@@ -58,10 +53,10 @@ class TranslateFragment : Fragment() {
                 target = target.toString(),
             )
 
-            viewModel.translate(request)
+            translateViewModel.translate(request)
         }
 
-        viewModel.translateResponse.observe(viewLifecycleOwner) {
+        translateViewModel.translateResponse.observe(viewLifecycleOwner) {
             binding.resultText.text = it.data?.translations?.translatedText
         }
     }

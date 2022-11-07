@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.viewModels
-import com.nutversion1.nutandroidshowcase.MyViewModel
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.databinding.FragmentAztroBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentHobbiesBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.AztroViewModel
 
 class AztroFragment : Fragment() {
     private lateinit var binding: FragmentAztroBinding
-    private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+    private val aztroViewModel: AztroViewModel by viewModels { AztroViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +37,10 @@ class AztroFragment : Fragment() {
             val sign = selectedSignButton.tag.toString()
             val day = selectedDayButton.tag.toString()
 
-            viewModel.fetchHoroscopeInformation(sign, day)
+            aztroViewModel.fetchHoroscopeInformation(sign, day)
         }
 
-        val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
-        viewModel.fetchHoroscopeInformationResponse.observe(viewLifecycleOwner) {
+        aztroViewModel.fetchHoroscopeInformationResponse.observe(viewLifecycleOwner) {
             binding.infoText.text =
                 """
                     ${it.description}

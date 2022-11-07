@@ -6,24 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nutversion1.nutandroidshowcase.api.ApiManager
-import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResponse
+import com.nutversion1.nutandroidshowcase.api.responses.FetchHoroscopeInformationResponse
 import kotlinx.coroutines.launch
 
-class YoutubeSearchViewModel : ViewModel() {
-    val youtubeSearchResponse = MutableLiveData<YoutubeSearchResponse>()
+class AztroViewModel : ViewModel() {
+    val fetchHoroscopeInformationResponse = MutableLiveData<FetchHoroscopeInformationResponse>()
 
-    fun youtubeSearch(query: String){
+    fun fetchHoroscopeInformation(sign: String, day: String){
         viewModelScope.launch {
-            val result = ApiManager.getYoutubeSearchService().search(query)
+            val result = ApiManager.getAztroService().fetchHoroscopeInformation(sign, day)
             Log.d("myDebug", "result: $result ${result.body()}")
 
-            youtubeSearchResponse.postValue(result.body())
+            fetchHoroscopeInformationResponse.postValue(result.body())
         }
     }
 
     class Factory : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return YoutubeSearchViewModel() as T
+            return AztroViewModel() as T
         }
     }
 }

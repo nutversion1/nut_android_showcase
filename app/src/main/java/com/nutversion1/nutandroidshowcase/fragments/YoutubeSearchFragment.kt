@@ -3,20 +3,13 @@ package com.nutversion1.nutandroidshowcase.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.nutversion1.nutandroidshowcase.MyViewModel
-import com.nutversion1.nutandroidshowcase.R
-import com.nutversion1.nutandroidshowcase.adapters.MemeAdapter
 import com.nutversion1.nutandroidshowcase.adapters.YoutubeAdapter
-import com.nutversion1.nutandroidshowcase.api.requests.DetectLanguageRequest
-import com.nutversion1.nutandroidshowcase.api.requests.TranslateRequest
 import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
-import com.nutversion1.nutandroidshowcase.databinding.FragmentTranslateBinding
 import com.nutversion1.nutandroidshowcase.databinding.FragmentYoutubeSearchBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel
 
