@@ -19,10 +19,11 @@ import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGamesResponse
 import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
 import com.nutversion1.nutandroidshowcase.databinding.FragmentProgrammingMemesBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
 
 class FreeGamesFragment : Fragment() {
     private lateinit var binding: FragmentFreeGamesBinding
-    private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+    private val freeGamesViewModel: FreeGamesViewModel by viewModels { FreeGamesViewModel.Factory()}
 
     private val freeGameListAdapter = FreeGameListAdapter(object : FreeGameListAdapter.ItemClickListener{
         override fun onClick(position: Int, itemView: View, freeGame: GetFreeGamesResponse) {
@@ -55,7 +56,9 @@ class FreeGamesFragment : Fragment() {
             binding.freeGameList.scrollToPosition(0)
         }
 
-        viewModel.getFreeGamesResponse.observe(viewLifecycleOwner) {
+        freeGamesViewModel.getFreeGamesResponse.observe(viewLifecycleOwner) {
+            Log.d("myDebug", "GetFreeGameResponse: ${it?.size}")
+
             freeGameListAdapter.setData(it)
         }
     }
@@ -80,7 +83,7 @@ class FreeGamesFragment : Fragment() {
             else -> null
         }
 
-        viewModel.getFreeGames(
+        freeGamesViewModel.getFreeGames(
             platform = platform,
             category = category,
             sortBy = "release-date",

@@ -15,11 +15,12 @@ import com.nutversion1.nutandroidshowcase.adapters.FootballTeamHeaderAdapter
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamListAdapter
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFootballBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.FootballViewModel
 
 
 class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
     private lateinit var binding: FragmentFootballBinding
-    private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+    private val footballViewModel: FootballViewModel by viewModels { FootballViewModel.Factory()}
 
     private lateinit var footballTeamHeaderAdapter: FootballTeamHeaderAdapter
     private val footballTeamListAdapter = FootballTeamListAdapter(this)
@@ -40,16 +41,16 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
 
         binding.teamList.adapter =  footballTeamListAdapter //ConcatAdapter(footballTeamHeaderAdapter, footballTeamListAdapter)
 
-        viewModel.leagueTableResponse.observe(viewLifecycleOwner) {
+        footballViewModel.leagueTableResponse.observe(viewLifecycleOwner) {
             footballTeamListAdapter.setData(it)
             binding.teamList.scrollToPosition(0)
         }
 
-        viewModel.getPremierLeagueTable()
+        footballViewModel.getPremierLeagueTable()
 
         binding.leagueTab.addOnTabSelectedListener(object : OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewModel.run{
+                footballViewModel.run{
                     when(tab?.position){
                         0 -> getPremierLeagueTable()
                         1 -> getLaligaTable()

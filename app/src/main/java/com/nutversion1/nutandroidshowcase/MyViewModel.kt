@@ -22,12 +22,7 @@ class MyViewModel : ViewModel() {
 
     val fetchHoroscopeInformationResponse = MutableLiveData<FetchHoroscopeInformationResponse>()
 
-    val youtubeSearchResponse = MutableLiveData<YoutubeSearchResponse>()
 
-    val leagueTableResponse = MutableLiveData<List<GetLeagueTableResponse>>()
-
-    val getFreeGamesResponse = MutableLiveData<List<GetFreeGamesResponse>>()
-    val getFreeGameDetailResponse = MutableLiveData<GetFreeGameDetailResponse>()
 
     fun getRandomQuote(){
         viewModelScope.launch {
@@ -119,68 +114,9 @@ class MyViewModel : ViewModel() {
         }
     }
 
-    fun youtubeSearch(query: String){
-        viewModelScope.launch {
-            val result = ApiManager.getYoutubeSearchService().search(query)
-            Log.d("myDebug", "result: $result ${result.body()}")
 
-            youtubeSearchResponse.postValue(result.body())
-        }
-    }
 
-    fun getPremierLeagueTable(){
-        viewModelScope.launch {
-            val result = ApiManager.getFootballService().getPremierLeagueTable()
-            Log.d("myDebug", "result: $result ${result.body()}")
 
-            leagueTableResponse.postValue(result.body())
-        }
-    }
-
-    fun getLaligaTable(){
-        viewModelScope.launch {
-            val result = ApiManager.getFootballService().getLaligaTable()
-            Log.d("myDebug", "result: $result ${result.body()}")
-
-            leagueTableResponse.postValue(result.body())
-        }
-    }
-
-    fun getSerieATable(){
-        viewModelScope.launch {
-            val result = ApiManager.getFootballService().getSerieATable()
-            Log.d("myDebug", "result: $result ${result.body()}")
-
-            leagueTableResponse.postValue(result.body())
-        }
-    }
-
-    fun getBundesligaTable(){
-        viewModelScope.launch {
-            val result = ApiManager.getFootballService().getBundesligaTable()
-            Log.d("myDebug", "result: $result ${result.body()}")
-
-            leagueTableResponse.postValue(result.body())
-        }
-    }
-
-    fun getFreeGames(platform: String? = null, category: String? = null, sortBy: String? = null){
-        viewModelScope.launch {
-            val result = ApiManager.getFreeGamesService().getFreeGames(platform, category, sortBy)
-            Log.d("myDebug", "result: $result ${result.body()}")
-
-            getFreeGamesResponse.postValue(result.body())
-        }
-    }
-
-    fun getFreeGameDetail(id: Int){
-        viewModelScope.launch {
-            val result = ApiManager.getFreeGamesService().getFreeGameDetail(id)
-            Log.d("myDebug", "result: $result ${result.body()}")
-
-            getFreeGameDetailResponse.postValue(result.body())
-        }
-    }
 
     class Factory : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

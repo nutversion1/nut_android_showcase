@@ -18,10 +18,11 @@ import com.nutversion1.nutandroidshowcase.api.requests.TranslateRequest
 import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
 import com.nutversion1.nutandroidshowcase.databinding.FragmentTranslateBinding
 import com.nutversion1.nutandroidshowcase.databinding.FragmentYoutubeSearchBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel
 
 class YoutubeSearchFragment : Fragment(){
     private lateinit var binding: FragmentYoutubeSearchBinding
-    private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+    private val youtubeSearchViewModel: YoutubeSearchViewModel by viewModels { YoutubeSearchViewModel.Factory()}
 
     private val youtubeAdapter = YoutubeAdapter(object : YoutubeAdapter.ItemClickListener{
         override fun onClick(position: Int, itemView: View, youtube: YoutubeSearchResult) {
@@ -48,11 +49,11 @@ class YoutubeSearchFragment : Fragment(){
             val text = binding.inputEditText.text.toString()
 
             if(text.isNotBlank()){
-                viewModel.youtubeSearch(text)
+                youtubeSearchViewModel.youtubeSearch(text)
             }
         }
 
-        viewModel.youtubeSearchResponse.observe(viewLifecycleOwner) {
+        youtubeSearchViewModel.youtubeSearchResponse.observe(viewLifecycleOwner) {
             youtubeAdapter.setData(it.results)
         }
     }

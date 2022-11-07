@@ -12,10 +12,11 @@ import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.adapters.FreeGameListAdapter
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGameDetailBinding
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
+import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
 
 class FreeGameDetailFragment : Fragment() {
     private lateinit var binding: FragmentFreeGameDetailBinding
-    private val viewModel: MyViewModel by viewModels { MyViewModel.Factory()}
+    private val freeGamesViewModel: FreeGamesViewModel by viewModels { FreeGamesViewModel.Factory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +32,7 @@ class FreeGameDetailFragment : Fragment() {
 
         fetchDetail()
 
-        viewModel.getFreeGameDetailResponse.observe(viewLifecycleOwner) {
+        freeGamesViewModel.getFreeGameDetailResponse.observe(viewLifecycleOwner) {
             it.run {
                 binding.titleText.text = title
                 binding.shortDescriptionText.text = shortDescription
@@ -55,7 +56,7 @@ class FreeGameDetailFragment : Fragment() {
         val id = arguments?.getInt("id")
 
         id?.let { id ->
-            viewModel.getFreeGameDetail(id)
+            freeGamesViewModel.getFreeGameDetail(id)
         }
     }
 }

@@ -2,22 +2,16 @@ package com.nutversion1.nutandroidshowcase.api
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
 object ApiManager {
     fun getRandomQuoteService(): RandomQuoteService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -29,13 +23,8 @@ object ApiManager {
 
     fun getHobbiesService(): HobbiesService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -47,13 +36,8 @@ object ApiManager {
 
     fun getNumbersService(): NumbersService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -65,13 +49,8 @@ object ApiManager {
 
     fun getProgrammingMemesService(): ProgrammingMemesService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -83,13 +62,8 @@ object ApiManager {
 
     fun getTranslateService(): TranslateService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -101,13 +75,8 @@ object ApiManager {
 
     fun getAztroService(): AztroService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -119,13 +88,8 @@ object ApiManager {
 
     fun getYoutubeSearchService(): YoutubeSearchService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -137,13 +101,8 @@ object ApiManager {
 
     fun getFootballService(): FootballService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -155,13 +114,8 @@ object ApiManager {
 
     fun getFreeGamesService(): FreeGamesService {
         val okHttpClient = OkHttpClient.Builder().apply {
-            addInterceptor(
-                Interceptor { chain ->
-                    val builder = chain.request().newBuilder()
-                    builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
-                    return@Interceptor chain.proceed(builder.build())
-                }
-            )
+            addInterceptor(getHttpLoggingInterceptor())
+            addInterceptor(getRapidApiKeyInterceptor())
         }.build()
 
         return Retrofit.Builder()
@@ -169,5 +123,19 @@ object ApiManager {
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build().create(FreeGamesService::class.java)
+    }
+
+    private fun getRapidApiKeyInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val builder = chain.request().newBuilder()
+            builder.header("X-RapidAPI-Key", "d6c331a93dmsh50acb261fb544bbp104233jsnf173aa315856")
+            return@Interceptor chain.proceed(builder.build())
+        }
+    }
+
+    private fun getHttpLoggingInterceptor(): Interceptor {
+        val interceptor = HttpLoggingInterceptor(ApiLogger())
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        return interceptor
     }
 }
