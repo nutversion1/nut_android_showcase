@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
+import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel.*
 
 
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
-    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels {RandomQuoteViewModel.Factory()}
+    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels { Factory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,15 +29,35 @@ class RandomQuoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        randomQuoteViewModel.getRandomQuote()
-        
+        prepareViewModels()
+
         binding.nextButton.setOnClickListener {
             randomQuoteViewModel.getRandomQuote()
         }
 
-        randomQuoteViewModel.randomQuote.observe(viewLifecycleOwner) {
-            binding.contentText.text = it.content
-            binding.nameText.text = it.originator.name
+        randomQuoteViewModel.getRandomQuote()
+    }
+
+    private fun prepareViewModels(){
+        randomQuoteViewModel.response.observe(viewLifecycleOwner) {
+            when(it){
+                is Response.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is Response.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    it.getRandomQuoteResponse.run {
+                        binding.contentText.text = content
+                        binding.nameText.text = originator.name
+                    }
+                }
+                is Response.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }

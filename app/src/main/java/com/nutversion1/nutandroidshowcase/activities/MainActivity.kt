@@ -1,9 +1,11 @@
 package com.nutversion1.nutandroidshowcase.activities
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.databinding.ActivityMainBinding
@@ -19,6 +21,14 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+
+    fun showLoadingBar(){
+        binding.loadingBar.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar(){
+        binding.loadingBar.visibility = View.GONE
     }
 
 //    override fun onBackPressed() {

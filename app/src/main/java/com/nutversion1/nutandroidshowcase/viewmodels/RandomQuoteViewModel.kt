@@ -1,23 +1,33 @@
 package com.nutversion1.nutandroidshowcase.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
+import com.nutversion1.nutandroidshowcase.api.ErrorMessage
 import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
 import kotlinx.coroutines.launch
 
+
 class RandomQuoteViewModel : ViewModel() {
-    val randomQuote = MutableLiveData<GetRandomQuoteResponse>()
+    val response = MutableLiveData<Response>()
 
     fun getRandomQuote(){
         viewModelScope.launch {
-            val result = ApiManager.getRandomQuoteService().getRandomQuote()
-            Log.d("myDebug", "result: ${result.body()}")
+            response.postValue(Response.Loading)
 
-            randomQuote.postValue(result.body())
+            val result = ApiManager.getRandomQuoteService().getRandomQuote()
+
+            if(result.isSuccessful){
+                response.postValue(result.body()?.let {
+                    Response.Success(it)
+                })
+            }else{
+                val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
+                response.postValue(Response.Error(errorResponse.message))
+            }
         }
     }
 
@@ -26,4 +36,11 @@ class RandomQuoteViewModel : ViewModel() {
             return RandomQuoteViewModel() as T
         }
     }
+
+    sealed class Response{
+        class Success(val getRandomQuoteResponse: GetRandomQuoteResponse): Response()
+        class Error(val errorMessage: String): Response()
+        object Loading: Response()
+    }
 }
+
