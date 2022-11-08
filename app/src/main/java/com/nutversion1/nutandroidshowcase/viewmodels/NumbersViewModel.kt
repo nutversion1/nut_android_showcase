@@ -1,50 +1,69 @@
 package com.nutversion1.nutandroidshowcase.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
+import com.nutversion1.nutandroidshowcase.api.ErrorMessage
 import com.nutversion1.nutandroidshowcase.api.responses.GetNumbersResponse
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class NumbersViewModel : ViewModel() {
-    val getNumbersResponse = MutableLiveData<GetNumbersResponse>()
+    val responseResult = MutableLiveData<ResponseResult>()
 
     fun getRandomDateFact(){
         viewModelScope.launch {
-            val result = ApiManager.getNumbersService().getRandomDateFact()
-            Log.d("myDebug", "result: ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            getNumbersResponse.postValue(result.body())
+            val result = ApiManager.getNumbersService().getRandomDateFact()
+
+            handleResponse(result)
         }
     }
 
     fun getRandomMathFact(){
         viewModelScope.launch {
-            val result = ApiManager.getNumbersService().getRandomMathFact()
-            Log.d("myDebug", "result: ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            getNumbersResponse.postValue(result.body())
+            val result = ApiManager.getNumbersService().getRandomMathFact()
+
+            handleResponse(result)
         }
     }
 
     fun getRandomTriviaFact(){
         viewModelScope.launch {
-            val result = ApiManager.getNumbersService().getRandomTriviaFact()
-            Log.d("myDebug", "result: ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            getNumbersResponse.postValue(result.body())
+            val result = ApiManager.getNumbersService().getRandomTriviaFact()
+
+            handleResponse(result)
         }
     }
 
     fun getRandomYearFact(){
         viewModelScope.launch {
-            val result = ApiManager.getNumbersService().getRandomYearFact()
-            Log.d("myDebug", "result: ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            getNumbersResponse.postValue(result.body())
+            val result = ApiManager.getNumbersService().getRandomYearFact()
+
+            handleResponse(result)
+        }
+    }
+
+    private fun handleResponse(result: Response<GetNumbersResponse>){
+        if(result.isSuccessful){
+            responseResult.postValue(
+                result.body()?.let {
+                    ResponseResult.Success(it)
+                }
+            )
+        }else{
+            val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
+            responseResult.postValue(ResponseResult.Error(errorResponse.message))
         }
     }
 
@@ -52,5 +71,11 @@ class NumbersViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return NumbersViewModel() as T
         }
+    }
+
+    sealed class ResponseResult{
+        class Success(val getNumbersResponse: GetNumbersResponse):ResponseResult()
+        class Error(val errorMessage: String):ResponseResult()
+        object Loading:ResponseResult()
     }
 }

@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.databinding.FragmentNumbersBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel
+import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel.ResponseResult
+import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
 
 
 class NumbersFragment : Fragment() {
@@ -44,17 +48,33 @@ class NumbersFragment : Fragment() {
             }
         }
 
-        numbersViewModel.getNumbersResponse.observe(viewLifecycleOwner) {
-            binding.contentText.text =
-                """
-                   Number: ${it.number}
-                   
-                   Fact: ${it.text}  
-                   
-                   Year: ${it.year} 
-                   
-                   Date: ${it.date} 
-                """.trimIndent()
+        numbersViewModel.responseResult.observe(viewLifecycleOwner) {
+            when(it){
+                is ResponseResult.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is ResponseResult.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    it.getNumbersResponse.run {
+                        binding.contentText.text =
+                            """ 
+                               Number: $number
+                               
+                               Fact: $text  
+                               
+                               Year: $year 
+                               
+                               Date: $date 
+                            """.trimIndent()
+                    }
+                }
+                is ResponseResult.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }
