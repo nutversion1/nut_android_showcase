@@ -6,14 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamHeaderAdapter
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamListAdapter
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFootballBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FootballViewModel
+import com.nutversion1.nutandroidshowcase.viewmodels.FootballViewModel.*
 
 
 class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
@@ -35,14 +38,11 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prepareViewModels()
+
         footballTeamHeaderAdapter = FootballTeamHeaderAdapter(layoutInflater)
 
         binding.teamList.adapter =  footballTeamListAdapter //ConcatAdapter(footballTeamHeaderAdapter, footballTeamListAdapter)
-
-        footballViewModel.leagueTableResponse.observe(viewLifecycleOwner) {
-            footballTeamListAdapter.setData(it)
-            binding.teamList.scrollToPosition(0)
-        }
 
         footballViewModel.getPremierLeagueTable()
 
@@ -67,6 +67,27 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
             }
 
         })
+    }
+
+    private fun prepareViewModels(){
+        footballViewModel.responseResult.observe(viewLifecycleOwner) {
+            when(it){
+                is ResponseResult.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is ResponseResult.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    footballTeamListAdapter.setData(it.response)
+                    binding.teamList.scrollToPosition(0)
+                }
+                is ResponseResult.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     override fun onClick(position: Int, itemView: View, leagueTableResponse: GetLeagueTableResponse) {

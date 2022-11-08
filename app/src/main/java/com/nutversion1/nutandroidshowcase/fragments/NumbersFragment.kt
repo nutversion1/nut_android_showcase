@@ -17,7 +17,7 @@ import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel
 import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel.ResponseResult
 import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
 
-
+@SuppressLint("SetTextI18n")
 class NumbersFragment : Fragment() {
     private lateinit var binding: FragmentNumbersBinding
     private val numbersViewModel: NumbersViewModel by viewModels { NumbersViewModel.Factory()}
@@ -31,9 +31,10 @@ class NumbersFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        prepareViewModels()
 
         binding.categoryRadioGroup.check(R.id.date_radio_button)
 
@@ -47,7 +48,9 @@ class NumbersFragment : Fragment() {
                 "year" -> numbersViewModel.getRandomYearFact()
             }
         }
+    }
 
+    private fun prepareViewModels(){
         numbersViewModel.responseResult.observe(viewLifecycleOwner) {
             when(it){
                 is ResponseResult.Loading -> {

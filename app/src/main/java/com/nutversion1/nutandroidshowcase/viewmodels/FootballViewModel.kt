@@ -5,46 +5,67 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
+import com.nutversion1.nutandroidshowcase.api.ErrorMessage
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse
+import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class FootballViewModel : ViewModel(){
-    val leagueTableResponse = MutableLiveData<List<GetLeagueTableResponse>>()
+    val responseResult = MutableLiveData<ResponseResult>()
 
     fun getPremierLeagueTable(){
         viewModelScope.launch {
-            val result = ApiManager.getFootballService().getPremierLeagueTable()
-            Log.d("myDebug", "result: $result ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            leagueTableResponse.postValue(result.body())
+            val result = ApiManager.getFootballService().getPremierLeagueTable()
+
+            handleResponse(result)
         }
     }
 
     fun getLaligaTable(){
         viewModelScope.launch {
-            val result = ApiManager.getFootballService().getLaligaTable()
-            Log.d("myDebug", "result: $result ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            leagueTableResponse.postValue(result.body())
+            val result = ApiManager.getFootballService().getLaligaTable()
+
+            handleResponse(result)
         }
     }
 
     fun getSerieATable(){
         viewModelScope.launch {
-            val result = ApiManager.getFootballService().getSerieATable()
-            Log.d("myDebug", "result: $result ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            leagueTableResponse.postValue(result.body())
+            val result = ApiManager.getFootballService().getSerieATable()
+
+            handleResponse(result)
         }
     }
 
     fun getBundesligaTable(){
         viewModelScope.launch {
-            val result = ApiManager.getFootballService().getBundesligaTable()
-            Log.d("myDebug", "result: $result ${result.body()}")
+            responseResult.postValue(ResponseResult.Loading)
 
-            leagueTableResponse.postValue(result.body())
+            val result = ApiManager.getFootballService().getBundesligaTable()
+
+            handleResponse(result)
+        }
+    }
+
+    private fun handleResponse(result: Response<List<GetLeagueTableResponse>>){
+        if(result.isSuccessful){
+            responseResult.postValue(
+                result.body()?.let {
+                    ResponseResult.Success(it)
+                }
+            )
+        }else{
+            val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
+            responseResult.postValue(ResponseResult.Error(errorResponse.message))
         }
     }
 
@@ -52,5 +73,11 @@ class FootballViewModel : ViewModel(){
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FootballViewModel() as T
         }
+    }
+
+    sealed class ResponseResult{
+        class Success(val response: List<GetLeagueTableResponse>) : ResponseResult()
+        class Error(val errorMessage: String) : ResponseResult()
+        object Loading : ResponseResult()
     }
 }
