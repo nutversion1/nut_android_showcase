@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.databinding.FragmentAztroBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.AztroViewModel
+import com.nutversion1.nutandroidshowcase.viewmodels.AztroViewModel.*
 
 class AztroFragment : Fragment() {
     private lateinit var binding: FragmentAztroBinding
@@ -27,6 +30,8 @@ class AztroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prepareViewModels()
+
         binding.signRadioGroup.check(R.id.aries_radio_button)
         binding.dayRadioGroup.check(R.id.today_radio_button)
 
@@ -39,20 +44,39 @@ class AztroFragment : Fragment() {
 
             aztroViewModel.fetchHoroscopeInformation(sign, day)
         }
+    }
 
-        aztroViewModel.fetchHoroscopeInformationResponse.observe(viewLifecycleOwner) {
-            binding.infoText.text =
-                """
-                    ${it.description}
-                    
-                    Date Range: ${it.dateRange}
-                    Current Date: ${it.currentDate}
-                    Compatibility: ${it.compatibility}
-                    Mood: ${it.mood}
-                    Color: ${it.color}
-                    Lucky Number: ${it.luckyNumber}
-                    Lucky Time: ${it.luckyTime}
-                """.trimIndent()
+    private fun prepareViewModels(){
+        aztroViewModel.responseResult.observe(viewLifecycleOwner) {
+            when(it){
+                is ResponseResult.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is ResponseResult.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    it.response.run{
+                        """
+                            $description
+                            
+                            Date Range: $dateRange
+                            Current Date: $currentDate
+                            Compatibility: $compatibility
+                            Mood: $mood
+                            Color: $color
+                            Lucky Number: $luckyNumber
+                            Lucky Time: $luckyTime
+                        """.trimIndent()
+                    }.also {
+                        binding.infoText.text = it
+                    }
+                }
+                is ResponseResult.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }
