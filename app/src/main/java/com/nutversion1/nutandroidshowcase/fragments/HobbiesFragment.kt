@@ -44,17 +44,17 @@ class HobbiesFragment : Fragment() {
             }
         }
 
-        hobbiesViewModel.response.observe(viewLifecycleOwner) {
+        hobbiesViewModel.responseResult.observe(viewLifecycleOwner) {
         }
     }
 
     private fun prepareViewModels(){
-        hobbiesViewModel.response.observe(viewLifecycleOwner) {
+        hobbiesViewModel.responseResult.observe(viewLifecycleOwner) {
             when(it){
-                is Response.Loading -> {
+                is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is Response.Success -> {
+                is ResponseResult.Success -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     it.getRandomHobbyResponse.run {
@@ -63,7 +63,7 @@ class HobbiesFragment : Fragment() {
                         binding.categoryText.text = category
                     }
                 }
-                is Response.Error -> {
+                is ResponseResult.Error -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()

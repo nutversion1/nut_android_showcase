@@ -12,21 +12,21 @@ import kotlinx.coroutines.launch
 
 
 class RandomQuoteViewModel : ViewModel() {
-    val response = MutableLiveData<Response>()
+    val responseResult = MutableLiveData<ResponseResult>()
 
     fun getRandomQuote(){
         viewModelScope.launch {
-            response.postValue(Response.Loading)
+            responseResult.postValue(ResponseResult.Loading)
 
             val result = ApiManager.getRandomQuoteService().getRandomQuote()
 
             if(result.isSuccessful){
-                response.postValue(result.body()?.let {
-                    Response.Success(it)
+                responseResult.postValue(result.body()?.let {
+                    ResponseResult.Success(it)
                 })
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                response.postValue(Response.Error(errorResponse.message))
+                responseResult.postValue(ResponseResult.Error(errorResponse.message))
             }
         }
     }
@@ -37,10 +37,10 @@ class RandomQuoteViewModel : ViewModel() {
         }
     }
 
-    sealed class Response{
-        class Success(val getRandomQuoteResponse: GetRandomQuoteResponse): Response()
-        class Error(val errorMessage: String): Response()
-        object Loading: Response()
+    sealed class ResponseResult{
+        class Success(val getRandomQuoteResponse: GetRandomQuoteResponse): ResponseResult()
+        class Error(val errorMessage: String): ResponseResult()
+        object Loading: ResponseResult()
     }
 }
 

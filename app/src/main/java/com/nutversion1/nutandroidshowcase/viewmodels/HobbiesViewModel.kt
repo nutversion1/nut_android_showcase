@@ -11,22 +11,22 @@ import com.nutversion1.nutandroidshowcase.api.responses.GetRandomHobbyResponse
 import kotlinx.coroutines.launch
 
 class HobbiesViewModel : ViewModel() {
-    val response = MutableLiveData<Response>()
+    val responseResult = MutableLiveData<ResponseResult>()
 
     fun getRandomHobby(category: String? = null){
         viewModelScope.launch {
-            response.postValue(Response.Loading)
+            responseResult.postValue(ResponseResult.Loading)
 
             val result = ApiManager.getHobbiesService().getRandomHobby(category)
 
             if(result.isSuccessful){
-                response.postValue(result.body()?.let {
-                    Response.Success(it)
+                responseResult.postValue(result.body()?.let {
+                    ResponseResult.Success(it)
                 })
 
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                response.postValue(Response.Error(errorResponse.message))
+                responseResult.postValue(ResponseResult.Error(errorResponse.message))
             }
         }
     }
@@ -37,10 +37,10 @@ class HobbiesViewModel : ViewModel() {
         }
     }
 
-    sealed class Response{
-        class Success(val getRandomHobbyResponse: GetRandomHobbyResponse): Response()
-        class Error(val errorMessage: String): Response()
-        object Loading: Response()
+    sealed class ResponseResult{
+        class Success(val getRandomHobbyResponse: GetRandomHobbyResponse): ResponseResult()
+        class Error(val errorMessage: String): ResponseResult()
+        object Loading: ResponseResult()
     }
 }
 

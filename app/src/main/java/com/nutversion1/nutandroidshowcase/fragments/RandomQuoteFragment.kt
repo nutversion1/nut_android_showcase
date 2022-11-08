@@ -39,12 +39,12 @@ class RandomQuoteFragment : Fragment() {
     }
 
     private fun prepareViewModels(){
-        randomQuoteViewModel.response.observe(viewLifecycleOwner) {
+        randomQuoteViewModel.responseResult.observe(viewLifecycleOwner) {
             when(it){
-                is Response.Loading -> {
+                is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is Response.Success -> {
+                is ResponseResult.Success -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     it.getRandomQuoteResponse.run {
@@ -52,7 +52,7 @@ class RandomQuoteFragment : Fragment() {
                         binding.nameText.text = originator.name
                     }
                 }
-                is Response.Error -> {
+                is ResponseResult.Error -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
