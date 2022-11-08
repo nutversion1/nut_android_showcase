@@ -7,11 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.adapters.YoutubeAdapter
 import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
 import com.nutversion1.nutandroidshowcase.databinding.FragmentYoutubeSearchBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel
+import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel.*
 
 class YoutubeSearchFragment : Fragment(){
     private lateinit var binding: FragmentYoutubeSearchBinding
@@ -19,7 +22,6 @@ class YoutubeSearchFragment : Fragment(){
 
     private val youtubeAdapter = YoutubeAdapter(object : YoutubeAdapter.ItemClickListener{
         override fun onClick(position: Int, itemView: View, youtube: YoutubeSearchResult) {
-//            Log.d("myDebug", "click $position ${youtube.title} ${youtube.url}")
             openUrl(youtube.url)
         }
     })
@@ -36,6 +38,8 @@ class YoutubeSearchFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prepareViewModels()
+
         binding.youtubeList.adapter = youtubeAdapter
 
         binding.searchButton.setOnClickListener {
@@ -45,9 +49,26 @@ class YoutubeSearchFragment : Fragment(){
                 youtubeSearchViewModel.youtubeSearch(text)
             }
         }
+    }
 
-        youtubeSearchViewModel.youtubeSearchResponse.observe(viewLifecycleOwner) {
-            youtubeAdapter.setData(it.results)
+    private fun prepareViewModels(){
+        youtubeSearchViewModel.responseResult.observe(viewLifecycleOwner) {
+            when(it){
+                is ResponseResult.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is ResponseResult.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    youtubeAdapter.setData(it.response.results)
+                    binding.youtubeList.scrollToPosition(0)
+                }
+                is ResponseResult.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
