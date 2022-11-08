@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGameDetailBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
 
@@ -26,30 +28,50 @@ class FreeGameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prepareViewModels()
+
         fetchDetail()
+    }
 
-        freeGamesViewModel.getFreeGameDetailResponse.observe(viewLifecycleOwner) {
-            it.run {
-                binding.titleText.text = title
-                binding.shortDescriptionText.text = shortDescription
-                binding.descriptionText.text = description
-                binding.gameUrlText.text = "GAME URL: $gameUrl"
-                binding.genreText.text = "GENRE: $genre"
-                binding.platformText.text = "PLATFORM: $platform"
-                binding.developerText.text = "DEVELOPER: $developer"
-                binding.publisherText.text = "PUBLISHER: $publisher"
-                binding.releaseDateText.text = "RELEASE DATE: $releaseDate"
+    private fun prepareViewModels(){
+        freeGamesViewModel.getFreeGameDetailResponseResult.observe(viewLifecycleOwner) {
+            when(it){
+                FreeGamesViewModel.GetFreeGameDetailResponseResult.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is FreeGamesViewModel.GetFreeGameDetailResponseResult.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
 
-                Glide.with(view)
-                    .load(thumbnail)
-                    .fitCenter()
-                    .into(binding.titleImage)
+                    it.response.run {
+                        binding.titleText.text = title
+                        binding.shortDescriptionText.text = shortDescription
+                        binding.descriptionText.text = description
+                        binding.gameUrlText.text = "GAME URL: $gameUrl"
+                        binding.genreText.text = "GENRE: $genre"
+                        binding.platformText.text = "PLATFORM: $platform"
+                        binding.developerText.text = "DEVELOPER: $developer"
+                        binding.publisherText.text = "PUBLISHER: $publisher"
+                        binding.releaseDateText.text = "RELEASE DATE: $releaseDate"
+
+                        view?.let { v ->
+                            Glide.with(v)
+                                .load(thumbnail)
+                                .fitCenter()
+                                .into(binding.titleImage)
+                        }
+                    }
+                }
+                is FreeGamesViewModel.GetFreeGameDetailResponseResult.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
 
     private fun fetchDetail() {
-        val id = arguments?.getInt("id")
+        val id = arguments?.getInt(FREE_GAME_ID_TAG)
 
         id?.let { id ->
             freeGamesViewModel.getFreeGameDetail(id)

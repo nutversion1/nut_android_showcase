@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nutversion1.nutandroidshowcase.R
+import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.adapters.FreeGameListAdapter
 import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGamesResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
+
+const val FREE_GAME_ID_TAG = "free_game_id"
 
 class FreeGamesFragment : Fragment() {
     private lateinit var binding: FragmentFreeGamesBinding
@@ -20,7 +24,6 @@ class FreeGamesFragment : Fragment() {
 
     private val freeGameListAdapter = FreeGameListAdapter(object : FreeGameListAdapter.ItemClickListener{
         override fun onClick(position: Int, itemView: View, freeGame: GetFreeGamesResponse) {
-            Log.d("myDebug", "click $position ${freeGame.title} ${freeGame.id}")
             openFreeGameDetailFragment(freeGame.id)
         }
     })
@@ -37,6 +40,8 @@ class FreeGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prepareViewModels()
+
         binding.freeGameList.adapter = freeGameListAdapter
 
         binding.platformRadioGroup.check(R.id.all_platform_radio_button)
@@ -48,11 +53,25 @@ class FreeGamesFragment : Fragment() {
             fetchFreeGames()
             binding.freeGameList.scrollToPosition(0)
         }
+    }
 
-        freeGamesViewModel.getFreeGamesResponse.observe(viewLifecycleOwner) {
-            Log.d("myDebug", "GetFreeGameResponse: ${it?.size}")
+    private fun prepareViewModels(){
+        freeGamesViewModel.getFreeGamesResponseResult.observe(viewLifecycleOwner) {
+            when(it){
+                FreeGamesViewModel.GetFreeGamesResponseResult.Loading -> {
+                    (activity as MainActivity).showLoadingBar()
+                }
+                is FreeGamesViewModel.GetFreeGamesResponseResult.Success -> {
+                    (activity as MainActivity).hideLoadingBar()
 
-            freeGameListAdapter.setData(it)
+                    freeGameListAdapter.setData(it.response)
+                }
+                is FreeGamesViewModel.GetFreeGamesResponseResult.Error -> {
+                    (activity as MainActivity).hideLoadingBar()
+
+                    Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
@@ -85,7 +104,7 @@ class FreeGamesFragment : Fragment() {
 
     private fun openFreeGameDetailFragment(id: Int){
         val bundle = Bundle()
-        bundle.putInt("id", id)
+        bundle.putInt(FREE_GAME_ID_TAG, id)
 
         findNavController().navigate(R.id.go_to_free_game_detail_fragment_action, bundle)
     }

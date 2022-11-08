@@ -29,8 +29,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
     <TextView
         android:id="@+id/result_text"
         android:layout_width="match_parent"
