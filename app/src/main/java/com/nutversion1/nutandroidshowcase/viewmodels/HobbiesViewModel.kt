@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.GetRandomHobbyResponse
 import kotlinx.coroutines.launch
 
@@ -35,12 +36,6 @@ class HobbiesViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return HobbiesViewModel() as T
         }
-    }
-
-    sealed class ResponseResult{
-        class Success(val getRandomHobbyResponse: GetRandomHobbyResponse): ResponseResult()
-        class Error(val errorMessage: String): ResponseResult()
-        object Loading: ResponseResult()
     }
 }
 

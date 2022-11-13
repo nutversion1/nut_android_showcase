@@ -11,10 +11,11 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.adapters.YoutubeAdapter
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
+import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResponse
 import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResult
 import com.nutversion1.nutandroidshowcase.databinding.FragmentYoutubeSearchBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel
-import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel.*
 
 class YoutubeSearchFragment : Fragment(){
     private lateinit var binding: FragmentYoutubeSearchBinding
@@ -29,7 +30,7 @@ class YoutubeSearchFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentYoutubeSearchBinding.inflate(inflater)
 
         return binding.root
@@ -57,10 +58,10 @@ class YoutubeSearchFragment : Fragment(){
                 is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is ResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    youtubeAdapter.setData(it.response.results)
+                    youtubeAdapter.setData((it.response as YoutubeSearchResponse).results)
                     binding.youtubeList.scrollToPosition(0)
                 }
                 is ResponseResult.Error -> {

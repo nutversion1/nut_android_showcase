@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.FetchHoroscopeInformationResponse
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse
 import kotlinx.coroutines.launch
@@ -44,11 +45,5 @@ class AztroViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AztroViewModel() as T
         }
-    }
-
-    sealed class ResponseResult{
-        class Success(val response: FetchHoroscopeInformationResponse) : ResponseResult()
-        class Error(val errorMessage: String) : ResponseResult()
-        object Loading : ResponseResult()
     }
 }

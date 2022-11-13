@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
 import com.nutversion1.nutandroidshowcase.api.responses.GetNumbersResponse
 import kotlinx.coroutines.launch
@@ -43,11 +44,5 @@ class ProgrammingMemesViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ProgrammingMemesViewModel () as T
         }
-    }
-
-    sealed class ResponseResult{
-        class Success(val response: List<GetMemesResponse>):ResponseResult()
-        class Error(val errorMessage: String):ResponseResult()
-        object Loading:ResponseResult()
     }
 }

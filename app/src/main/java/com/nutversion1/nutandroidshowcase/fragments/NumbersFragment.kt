@@ -12,10 +12,10 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
+import com.nutversion1.nutandroidshowcase.api.responses.GetNumbersResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentNumbersBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel
-import com.nutversion1.nutandroidshowcase.viewmodels.NumbersViewModel.ResponseResult
-import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
 
 @SuppressLint("SetTextI18n")
 class NumbersFragment : Fragment() {
@@ -25,7 +25,7 @@ class NumbersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNumbersBinding.inflate(inflater)
 
         return binding.root
@@ -56,10 +56,10 @@ class NumbersFragment : Fragment() {
                 is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is ResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    it.getNumbersResponse.run {
+                    (it.response as GetNumbersResponse).run {
                         binding.contentText.text =
                             """ 
                                Number: $number

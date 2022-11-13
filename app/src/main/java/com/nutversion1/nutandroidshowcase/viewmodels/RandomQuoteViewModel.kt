@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
-import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
 import kotlinx.coroutines.launch
 
 
@@ -35,12 +35,6 @@ class RandomQuoteViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return RandomQuoteViewModel() as T
         }
-    }
-
-    sealed class ResponseResult{
-        class Success(val getRandomQuoteResponse: GetRandomQuoteResponse): ResponseResult()
-        class Error(val errorMessage: String): ResponseResult()
-        object Loading: ResponseResult()
     }
 }
 

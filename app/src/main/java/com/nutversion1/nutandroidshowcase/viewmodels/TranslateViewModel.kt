@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.requests.DetectLanguageRequest
 import com.nutversion1.nutandroidshowcase.api.requests.TranslateRequest
 import com.nutversion1.nutandroidshowcase.api.responses.DetectLanguageResponse
@@ -16,43 +17,43 @@ import com.nutversion1.nutandroidshowcase.api.responses.YoutubeSearchResponse
 import kotlinx.coroutines.launch
 
 class TranslateViewModel : ViewModel() {
-    val translateResponseResult = MutableLiveData<TranslateResponseResult>()
-    val detectLanguageResponseResult = MutableLiveData<DetectLanguageResponseResult>()
+    val translateResponseResult = MutableLiveData<ResponseResult>()
+    val detectLanguageResponseResult = MutableLiveData<ResponseResult>()
 
     fun translate(translateRequest: TranslateRequest){
         viewModelScope.launch {
-            translateResponseResult.postValue(TranslateResponseResult.Loading)
+            translateResponseResult.postValue(ResponseResult.Loading)
 
             val result = ApiManager.getTranslateService().translate(translateRequest)
 
             if(result.isSuccessful){
                 translateResponseResult.postValue(
                     result.body()?.let {
-                        TranslateResponseResult.Success(it)
+                        ResponseResult.Success(it)
                     }
                 )
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                translateResponseResult.postValue(TranslateResponseResult.Error(errorResponse.message.toString()))
+                translateResponseResult.postValue(ResponseResult.Error(errorResponse.message.toString()))
             }
         }
     }
 
     fun detectLanguage(detectLanguageRequest: DetectLanguageRequest){
         viewModelScope.launch {
-            detectLanguageResponseResult.postValue(DetectLanguageResponseResult.Loading)
+            detectLanguageResponseResult.postValue(ResponseResult.Loading)
 
             val result = ApiManager.getTranslateService().detectLanguage(detectLanguageRequest)
 
             if(result.isSuccessful){
                 detectLanguageResponseResult.postValue(
                     result.body()?.let {
-                        DetectLanguageResponseResult.Success(it)
+                        ResponseResult.Success(it)
                     }
                 )
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                detectLanguageResponseResult.postValue(DetectLanguageResponseResult.Error(errorResponse.message.toString()))
+                detectLanguageResponseResult.postValue(ResponseResult.Error(errorResponse.message.toString()))
             }
         }
     }
@@ -61,17 +62,5 @@ class TranslateViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return TranslateViewModel() as T
         }
-    }
-
-    sealed class TranslateResponseResult{
-        class Success(val response: TranslateResponse) : TranslateResponseResult()
-        class Error(val errorMessage: String) : TranslateResponseResult()
-        object Loading : TranslateResponseResult()
-    }
-
-    sealed class DetectLanguageResponseResult{
-        class Success(val response: DetectLanguageResponse) : DetectLanguageResponseResult()
-        class Error(val errorMessage: String) : DetectLanguageResponseResult()
-        object Loading : DetectLanguageResponseResult()
     }
 }

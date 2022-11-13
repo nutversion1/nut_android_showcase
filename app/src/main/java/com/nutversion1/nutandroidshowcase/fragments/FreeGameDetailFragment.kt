@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
+import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGameDetailResponse
+import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGamesResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGameDetailBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
 
@@ -19,7 +22,7 @@ class FreeGameDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFreeGameDetailBinding.inflate(inflater)
 
         return binding.root
@@ -36,13 +39,13 @@ class FreeGameDetailFragment : Fragment() {
     private fun prepareViewModels(){
         freeGamesViewModel.getFreeGameDetailResponseResult.observe(viewLifecycleOwner) {
             when(it){
-                FreeGamesViewModel.GetFreeGameDetailResponseResult.Loading -> {
+                ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is FreeGamesViewModel.GetFreeGameDetailResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    it.response.run {
+                    (it.response as GetFreeGameDetailResponse).run {
                         binding.titleText.text = title
                         binding.shortDescriptionText.text = shortDescription
                         binding.descriptionText.text = description
@@ -61,7 +64,7 @@ class FreeGameDetailFragment : Fragment() {
                         }
                     }
                 }
-                is FreeGamesViewModel.GetFreeGameDetailResponseResult.Error -> {
+                is ResponseResult.Error -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()

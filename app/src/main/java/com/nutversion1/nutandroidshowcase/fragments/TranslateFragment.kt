@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.requests.DetectLanguageRequest
 import com.nutversion1.nutandroidshowcase.api.requests.TranslateRequest
+import com.nutversion1.nutandroidshowcase.api.responses.DetectLanguageResponse
+import com.nutversion1.nutandroidshowcase.api.responses.TranslateResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentTranslateBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.TranslateViewModel
-import com.nutversion1.nutandroidshowcase.viewmodels.YoutubeSearchViewModel
 
 class TranslateFragment : Fragment() {
     private lateinit var binding: FragmentTranslateBinding
@@ -21,7 +23,7 @@ class TranslateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTranslateBinding.inflate(inflater)
 
         return binding.root
@@ -46,17 +48,17 @@ class TranslateFragment : Fragment() {
     private fun prepareViewModels(){
         translateViewModel.detectLanguageResponseResult.observe(viewLifecycleOwner) {
             when(it){
-                TranslateViewModel.DetectLanguageResponseResult.Loading -> {
+                ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is TranslateViewModel.DetectLanguageResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     if(binding.inputEditText.text.isBlank()){
                         return@observe
                     }
 
-                    val source = it.response.data?.detections?.firstOrNull()?.language
+                    val source = (it.response as DetectLanguageResponse).data?.detections?.firstOrNull()?.language
                     val target = when(source){
                         "en" -> "th"
                         "th" -> "en"
@@ -71,7 +73,7 @@ class TranslateFragment : Fragment() {
 
                     translateViewModel.translate(request)
                 }
-                is TranslateViewModel.DetectLanguageResponseResult.Error -> {
+                is ResponseResult.Error -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()
@@ -81,15 +83,15 @@ class TranslateFragment : Fragment() {
 
         translateViewModel.translateResponseResult.observe(viewLifecycleOwner) {
             when (it) {
-                TranslateViewModel.TranslateResponseResult.Loading -> {
+                ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is TranslateViewModel.TranslateResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    binding.resultText.text = it.response.data?.translations?.translatedText
+                    binding.resultText.text = (it.response as TranslateResponse).data?.translations?.translatedText
                 }
-                is TranslateViewModel.TranslateResponseResult.Error -> {
+                is ResponseResult.Error -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()

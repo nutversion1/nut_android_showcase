@@ -13,10 +13,10 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamHeaderAdapter
 import com.nutversion1.nutandroidshowcase.adapters.FootballTeamListAdapter
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFootballBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FootballViewModel
-import com.nutversion1.nutandroidshowcase.viewmodels.FootballViewModel.*
 
 
 class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
@@ -29,7 +29,7 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFootballBinding.inflate(inflater)
 
         return binding.root
@@ -75,10 +75,10 @@ class FootballFragment : Fragment(), FootballTeamListAdapter.ItemClickListener {
                 is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is ResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    footballTeamListAdapter.setData(it.response)
+                    footballTeamListAdapter.setData(it.response as List<GetLeagueTableResponse>)
                     binding.teamList.scrollToPosition(0)
                 }
                 is ResponseResult.Error -> {

@@ -8,19 +8,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
+import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
-import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel.*
 
 
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
-    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels { Factory() }
+    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRandomQuoteBinding.inflate(inflater)
 
         return binding.root
@@ -44,10 +45,10 @@ class RandomQuoteFragment : Fragment() {
                 is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is ResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    it.getRandomQuoteResponse.run {
+                    (it.response as GetRandomQuoteResponse).run {
                         binding.contentText.text = content
                         binding.nameText.text = originator.name
                     }

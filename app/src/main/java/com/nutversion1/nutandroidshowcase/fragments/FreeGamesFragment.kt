@@ -1,7 +1,6 @@
 package com.nutversion1.nutandroidshowcase.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.adapters.FreeGameListAdapter
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.GetFreeGamesResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentFreeGamesBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.FreeGamesViewModel
@@ -31,7 +31,7 @@ class FreeGamesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFreeGamesBinding.inflate(inflater)
 
         return binding.root
@@ -58,15 +58,15 @@ class FreeGamesFragment : Fragment() {
     private fun prepareViewModels(){
         freeGamesViewModel.getFreeGamesResponseResult.observe(viewLifecycleOwner) {
             when(it){
-                FreeGamesViewModel.GetFreeGamesResponseResult.Loading -> {
+                ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is FreeGamesViewModel.GetFreeGamesResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    freeGameListAdapter.setData(it.response)
+                    freeGameListAdapter.setData(it.response as List<GetFreeGamesResponse>)
                 }
-                is FreeGamesViewModel.GetFreeGamesResponseResult.Error -> {
+                is ResponseResult.Error -> {
                     (activity as MainActivity).hideLoadingBar()
 
                     Toast.makeText(activity, "Error: ${it.errorMessage}", Toast.LENGTH_LONG).show()

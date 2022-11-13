@@ -10,19 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
+import com.nutversion1.nutandroidshowcase.api.responses.GetRandomHobbyResponse
 import com.nutversion1.nutandroidshowcase.databinding.FragmentHobbiesBinding
 import com.nutversion1.nutandroidshowcase.viewmodels.HobbiesViewModel
-import com.nutversion1.nutandroidshowcase.viewmodels.HobbiesViewModel.*
-
 
 class HobbiesFragment : Fragment() {
     private lateinit var binding: FragmentHobbiesBinding
-    private val hobbiesViewModel: HobbiesViewModel by viewModels { Factory() }
+    private val hobbiesViewModel: HobbiesViewModel by viewModels { HobbiesViewModel.Factory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHobbiesBinding.inflate(inflater)
 
         return binding.root
@@ -54,10 +54,10 @@ class HobbiesFragment : Fragment() {
                 is ResponseResult.Loading -> {
                     (activity as MainActivity).showLoadingBar()
                 }
-                is ResponseResult.Success -> {
+                is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    it.getRandomHobbyResponse.run {
+                    (it.response as GetRandomHobbyResponse).run {
                         binding.hobbyText.text = hobby
                         binding.linkText.text = link
                         binding.categoryText.text = category

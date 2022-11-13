@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
+import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.GetNumbersResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -71,11 +72,5 @@ class NumbersViewModel : ViewModel() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return NumbersViewModel() as T
         }
-    }
-
-    sealed class ResponseResult{
-        class Success(val getNumbersResponse: GetNumbersResponse):ResponseResult()
-        class Error(val errorMessage: String):ResponseResult()
-        object Loading:ResponseResult()
     }
 }
