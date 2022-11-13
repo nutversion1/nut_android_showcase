@@ -33,7 +33,7 @@ class TranslateViewModel : ViewModel() {
                 )
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                translateResponseResult.postValue(TranslateResponseResult.Error(errorResponse.message))
+                translateResponseResult.postValue(TranslateResponseResult.Error(errorResponse.message.toString()))
             }
         }
     }
@@ -52,7 +52,7 @@ class TranslateViewModel : ViewModel() {
                 )
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                detectLanguageResponseResult.postValue(DetectLanguageResponseResult.Error(errorResponse.message))
+                detectLanguageResponseResult.postValue(DetectLanguageResponseResult.Error(errorResponse.message.toString()))
             }
         }
     }

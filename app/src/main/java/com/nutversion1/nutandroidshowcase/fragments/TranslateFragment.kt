@@ -33,11 +33,13 @@ class TranslateFragment : Fragment() {
         prepareViewModels()
 
         binding.translateButton.setOnClickListener {
-            val request = DetectLanguageRequest(
-                text = binding.inputEditText.text.toString(),
-            )
+            if(binding.inputEditText.text.isNotBlank()){
+                val request = DetectLanguageRequest(
+                    text = binding.inputEditText.text.toString(),
+                )
 
-            translateViewModel.detectLanguage(request)
+                translateViewModel.detectLanguage(request)
+            }
         }
     }
 

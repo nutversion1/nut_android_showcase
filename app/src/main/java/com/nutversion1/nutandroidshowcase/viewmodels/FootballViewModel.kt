@@ -10,6 +10,7 @@ import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ErrorMessage
 import com.nutversion1.nutandroidshowcase.api.responses.GetLeagueTableResponse
 import com.nutversion1.nutandroidshowcase.api.responses.GetMemesResponse
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -20,9 +21,12 @@ class FootballViewModel : ViewModel(){
         viewModelScope.launch {
             responseResult.postValue(ResponseResult.Loading)
 
-            val result = ApiManager.getFootballService().getPremierLeagueTable()
-
-            handleResponse(result)
+            try {
+                handleResponse(ApiManager.getFootballService().getPremierLeagueTable())
+            }
+            catch (e: Exception){
+                responseResult.postValue(ResponseResult.Error(e.toString()))
+            }
         }
     }
 
@@ -30,9 +34,12 @@ class FootballViewModel : ViewModel(){
         viewModelScope.launch {
             responseResult.postValue(ResponseResult.Loading)
 
-            val result = ApiManager.getFootballService().getLaligaTable()
-
-            handleResponse(result)
+            try {
+                handleResponse(ApiManager.getFootballService().getLaligaTable())
+            }
+            catch (e: Exception){
+                responseResult.postValue(ResponseResult.Error(e.toString()))
+            }
         }
     }
 
@@ -40,9 +47,12 @@ class FootballViewModel : ViewModel(){
         viewModelScope.launch {
             responseResult.postValue(ResponseResult.Loading)
 
-            val result = ApiManager.getFootballService().getSerieATable()
-
-            handleResponse(result)
+            try {
+                handleResponse(ApiManager.getFootballService().getSerieATable())
+            }
+            catch (e: Exception){
+                responseResult.postValue(ResponseResult.Error(e.toString()))
+            }
         }
     }
 
@@ -50,9 +60,12 @@ class FootballViewModel : ViewModel(){
         viewModelScope.launch {
             responseResult.postValue(ResponseResult.Loading)
 
-            val result = ApiManager.getFootballService().getBundesligaTable()
-
-            handleResponse(result)
+            try {
+                handleResponse(ApiManager.getFootballService().getBundesligaTable())
+            }
+            catch (e: Exception){
+                responseResult.postValue(ResponseResult.Error(e.toString()))
+            }
         }
     }
 
@@ -65,7 +78,7 @@ class FootballViewModel : ViewModel(){
             )
         }else{
             val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-            responseResult.postValue(ResponseResult.Error(errorResponse.message))
+            responseResult.postValue(ResponseResult.Error(errorResponse.message.toString()))
         }
     }
 

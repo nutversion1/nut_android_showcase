@@ -26,7 +26,7 @@ class RandomQuoteViewModel : ViewModel() {
                 })
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                responseResult.postValue(ResponseResult.Error(errorResponse.message))
+                responseResult.postValue(ResponseResult.Error(errorResponse.message.toString()))
             }
         }
     }

@@ -32,7 +32,7 @@ class FreeGamesViewModel : ViewModel() {
                 )
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                getFreeGamesResponseResult.postValue(GetFreeGamesResponseResult.Error(errorResponse.message))
+                getFreeGamesResponseResult.postValue(GetFreeGamesResponseResult.Error(errorResponse.message.toString()))
             }
 
         }
@@ -52,7 +52,7 @@ class FreeGamesViewModel : ViewModel() {
                 )
             }else{
                 val errorResponse = Gson().fromJson(result.errorBody()?.charStream(), ErrorMessage::class.java)
-                getFreeGameDetailResponseResult.postValue(GetFreeGameDetailResponseResult.Error(errorResponse.message))
+                getFreeGameDetailResponseResult.postValue(GetFreeGameDetailResponseResult.Error(errorResponse.message.toString()))
             }
         }
     }
