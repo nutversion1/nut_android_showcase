@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,10 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NutAndroidShowcase"
         tools:targetApi="31">
-        <service
-            android:name=".HobbiesService"
-            android:enabled="true"
-            android:exported="true"></service>
 
         <activity
             android:name=".activities.MainActivity"

@@ -1,10 +1,12 @@
 package com.nutversion1.nutandroidshowcase.activities
 
+import android.content.pm.PackageManager
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.nutversion1.nutandroidshowcase.R
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     fun hideLoadingBar(){
         binding.loadingBar.visibility = View.GONE
     }
+
 
 //    override fun onBackPressed() {
 //        if (doubleBackToExitPressedOnce) {
