@@ -1,17 +1,13 @@
 package com.nutversion1.nutandroidshowcase.activities
 
-import android.content.pm.PackageManager
-import android.opengl.Visibility
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Dialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import com.nutversion1.nutandroidshowcase.R
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.nutversion1.nutandroidshowcase.databinding.ActivityMainBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentAboutBinding
+import com.nutversion1.nutandroidshowcase.dialogs.MyDialog
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,6 +21,35 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        Log.d("myDebug", "resume")
+        super.onResume()
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
+    override fun onPause() {
+        Log.d("myDebug", "pause")
+        super.onPause()
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+
+        Log.d("myDebug", "current focus: ${window.currentFocus}")
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        Log.d("myDebug", "onWindowFocusChanged: $hasFocus")
+        super.onWindowFocusChanged(hasFocus)
+
+        if(hasFocus){
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }else{
+            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        }
+
+
+    }
+
     fun showLoadingBar(){
         binding.loadingBar.visibility = View.VISIBLE
     }
@@ -33,6 +58,10 @@ class MainActivity : AppCompatActivity() {
         binding.loadingBar.visibility = View.GONE
     }
 
+    override fun onBackPressed() {
+        val dialog = MyDialog()
+        dialog.show(supportFragmentManager, "MyDialog")
+    }
 
 //    override fun onBackPressed() {
 //        if (doubleBackToExitPressedOnce) {
