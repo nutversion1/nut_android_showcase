@@ -18,6 +18,10 @@
             android:id="@+id/go_to_about_fragment_action"
             app:destination="@id/about_fragment">
         </action>
+        <action
+            android:id="@+id/go_to_blur_detection_fragment_action"
+            app:destination="@id/blur_detection_fragment">
+        </action>
     </fragment>
 
     <fragment
@@ -61,10 +65,17 @@
             app:destination="@id/free_games_fragment">
         </action>
     </fragment>
+
     <fragment
         android:id="@+id/about_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.AboutFragment"
         tools:layout="@layout/fragment_about">
+    </fragment>
+
+    <fragment
+        android:id="@+id/blur_detection_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.BlurDetectionFragment"
+        tools:layout="@layout/fragment_blur_detection">
     </fragment>
 
     <fragment

@@ -24,6 +24,13 @@
         />
 
     <Button
+        android:id="@+id/blur_detection_button"
+        android:text="blur detection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
         android:id="@+id/test1_button"
         android:text="test 1"
         android:layout_width="match_parent"
@@ -36,5 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+
 
 </LinearLayout>

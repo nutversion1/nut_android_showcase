@@ -2,9 +2,12 @@ package com.nutversion1.nutandroidshowcase.activities
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.nutversion1.nutandroidshowcase.databinding.ActivityMainBinding
 import com.nutversion1.nutandroidshowcase.dialogs.MyDialog
@@ -22,23 +25,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        Log.d("myDebug", "resume")
+//        Log.d("myDebug", "resume")
         super.onResume()
 
         window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     override fun onPause() {
-        Log.d("myDebug", "pause")
+//        Log.d("myDebug", "pause")
         super.onPause()
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
-        Log.d("myDebug", "current focus: ${window.currentFocus}")
+//        Log.d("myDebug", "current focus: ${window.currentFocus}")
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
-        Log.d("myDebug", "onWindowFocusChanged: $hasFocus")
+//        Log.d("myDebug", "onWindowFocusChanged: $hasFocus")
         super.onWindowFocusChanged(hasFocus)
 
         if(hasFocus){
@@ -58,10 +61,10 @@ class MainActivity : AppCompatActivity() {
         binding.loadingBar.visibility = View.GONE
     }
 
-    override fun onBackPressed() {
-        val dialog = MyDialog()
-        dialog.show(supportFragmentManager, "MyDialog")
-    }
+//    override fun onBackPressed() {
+//        val dialog = MyDialog()
+//        dialog.show(supportFragmentManager, "MyDialog")
+//    }
 
 //    override fun onBackPressed() {
 //        if (doubleBackToExitPressedOnce) {
