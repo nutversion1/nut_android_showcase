@@ -63,16 +63,15 @@ class BlurDetectionFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST_CODE) {
             Log.d("myDebug", "requestCode: $requestCode - resultCode: $resultCode - data: $data")
 
-            if (requestCode == PICK_IMAGE_REQUEST_CODE) {
-                val selectedImageUri = data?.data
+            val selectedImageUri = data?.data
 
-                selectedImageUri?.let {
-                    binding.previewImage.setImageURI(it)
+            selectedImageUri?.let {
+                binding.previewImage.setImageURI(it)
 
-                    val score = getSharpnessScoreFromOpenCV(binding.previewImage.drawToBitmap())
-                    showScoreFromOpenCV(score)
-                }
+                val score = getSharpnessScoreFromOpenCV(binding.previewImage.drawToBitmap())
+                showScoreFromOpenCV(score)
             }
+
         }
     }
 
@@ -98,10 +97,11 @@ class BlurDetectionFragment : Fragment() {
         val median = MatOfDouble()
         val std = MatOfDouble()
         Core.meanStdDev(destination, median, std)
+
         return DecimalFormat("0.00").format(std.get(0, 0)[0].pow(2.0)).toDouble()
     }
 
-    fun showScoreFromOpenCV(score: Double) {
+    private fun showScoreFromOpenCV(score: Double) {
         when (score < BLUR_THRESHOLD) {
             true -> {
                 binding.sharpnessText.text = "$BLURRED_IMAGE\n\nScore: $score\n\n[Threshold: $BLUR_THRESHOLD]"
