@@ -59,6 +59,29 @@ class BlurDetectionFragment : Fragment() {
         }
     }
 
+    private fun resizeBitmap(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        var width = image.width
+        var height = image.height
+
+        when {
+            width > height -> { //landscape image
+                val ratio = (width / maxWidth.toFloat())
+                width = maxWidth
+                height = (height / ratio).toInt()
+            }
+            height > width -> { //portrait image
+                val ratio = height / maxHeight.toFloat()
+                height = maxHeight
+                width = (width / ratio).toInt()
+            }
+            else -> {
+                width = maxWidth
+                height = maxHeight
+            }
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST_CODE) {
             Log.d("myDebug", "requestCode: $requestCode - resultCode: $resultCode - data: $data")
@@ -68,7 +91,9 @@ class BlurDetectionFragment : Fragment() {
             selectedImageUri?.let {
                 binding.previewImage.setImageURI(it)
 
-                val score = getSharpnessScoreFromOpenCV(binding.previewImage.drawToBitmap())
+                val resizedBitmap = resizeBitmap(binding.previewImage.drawToBitmap(), 500, 500)
+
+                val score = getSharpnessScoreFromOpenCV(resizedBitmap)
                 showScoreFromOpenCV(score)
             }
 
