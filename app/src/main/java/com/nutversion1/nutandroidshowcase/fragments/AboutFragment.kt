@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nutversion1.nutandroidshowcase.R
 import com.nutversion1.nutandroidshowcase.databinding.FragmentAboutBinding
-import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 
 class AboutFragment : Fragment() {
     private lateinit var binding: FragmentAboutBinding

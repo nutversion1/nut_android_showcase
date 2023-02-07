@@ -9,6 +9,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.nutversion1.nutandroidshowcase.databinding.ActivityMainBinding
 import com.nutversion1.nutandroidshowcase.dialogs.MyDialog
 
@@ -79,4 +81,19 @@ class MainActivity : AppCompatActivity() {
 //            { doubleBackToExitPressedOnce = false },
 //            2000)
 //    }
+
+    private fun fetchFcmRegistrationToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("myDebug", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            Log.d("myDebug", "token: $token")
+        })
+    }
 }
