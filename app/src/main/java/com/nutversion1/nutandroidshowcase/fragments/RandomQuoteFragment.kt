@@ -1,22 +1,45 @@
 package com.nutversion1.nutandroidshowcase.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.room.Room
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
+import com.nutversion1.nutandroidshowcase.api.ApiManager
 import com.nutversion1.nutandroidshowcase.api.ResponseResult
 import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
+import com.nutversion1.nutandroidshowcase.database.RandomQuoteDatabase
 import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
+import com.nutversion1.nutandroidshowcase.mapper.RandomQuoteMapper
+import com.nutversion1.nutandroidshowcase.repository.RandomQuoteRepository
+import com.nutversion1.nutandroidshowcase.ui.RandomQuoteUi
 import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
 
 
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
-    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels()
+
+    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels {
+        val randomQuoteDb = Room.databaseBuilder(
+            requireContext(),
+            RandomQuoteDatabase::class.java, "random_quote_db")
+            .fallbackToDestructiveMigration()
+            .build()
+
+        val randomQuoteRepository = RandomQuoteRepository(
+            ApiManager.getRandomQuoteService(),
+            randomQuoteDb.randomQuoteDao(),
+            RandomQuoteMapper(),
+        )
+
+        RandomQuoteViewModel.Factory(randomQuoteRepository)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +55,11 @@ class RandomQuoteFragment : Fragment() {
 
         prepareViewModels()
 
+        randomQuoteViewModel.getRandomQuote()
+
         binding.nextButton.setOnClickListener {
             randomQuoteViewModel.getRandomQuote()
         }
-
-        randomQuoteViewModel.getRandomQuote()
     }
 
     private fun prepareViewModels(){
@@ -48,9 +71,13 @@ class RandomQuoteFragment : Fragment() {
                 is ResponseResult.Success<*> -> {
                     (activity as MainActivity).hideLoadingBar()
 
-                    (it.response as GetRandomQuoteResponse).run {
-                        binding.contentText.text = content
-                        binding.nameText.text = originator.name
+                    when(it.response){
+                        is RandomQuoteUi -> {
+                            it.response.run{
+                                binding.contentText.text = text
+                                binding.nameText.text = credit
+                            }
+                        }
                     }
                 }
                 is ResponseResult.Error -> {
