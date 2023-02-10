@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.nutversion1.nutandroidshowcase'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.nutversion1.nutandroidshowcase"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -39,24 +39,24 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.5.1"
-    def room_version = "2.3.0"
+    def room_version = "2.5.0"
     def coroutines_version = "1.3.9"
-    def work_manager_version = "2.5.0"
-    def gson_version = "2.8.9"
+    def gson_version = "2.9.0"
     def koin_version = "3.3.3"
     def retrofit2_version = "2.9.0"
     def navigation_version = "2.5.3"
     def glide_version = "4.12.0"
     def open_cv_version = "4.5.3.0"
+    def lifecycle_version = "2.5.1"
+    def work_manager_version = "2.5.0"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
@@ -69,12 +69,7 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
-//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-//    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-//    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
@@ -90,4 +85,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
     implementation "io.insert-koin:koin-android:$koin_version"
+
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+//    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 }

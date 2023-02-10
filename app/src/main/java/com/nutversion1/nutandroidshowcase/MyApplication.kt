@@ -20,11 +20,13 @@ import org.koin.dsl.module
 import kotlin.random.Random
 
 class MyApplication : Application() {
-
-
     override fun onCreate() {
         super.onCreate()
 
+        setupKoin()
+    }
+
+    private fun setupKoin(){
         startKoin {
             androidLogger(Level.INFO)
             androidContext(this@MyApplication)
