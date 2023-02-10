@@ -11,34 +11,27 @@ import androidx.fragment.app.viewModels
 import androidx.room.Room
 import com.nutversion1.nutandroidshowcase.activities.MainActivity
 import com.nutversion1.nutandroidshowcase.api.ApiManager
+import com.nutversion1.nutandroidshowcase.api.RandomQuoteService
 import com.nutversion1.nutandroidshowcase.api.ResponseResult
-import com.nutversion1.nutandroidshowcase.api.responses.GetRandomQuoteResponse
 import com.nutversion1.nutandroidshowcase.database.RandomQuoteDatabase
 import com.nutversion1.nutandroidshowcase.databinding.FragmentRandomQuoteBinding
 import com.nutversion1.nutandroidshowcase.mapper.RandomQuoteMapper
 import com.nutversion1.nutandroidshowcase.repository.RandomQuoteRepository
 import com.nutversion1.nutandroidshowcase.ui.RandomQuoteUi
 import com.nutversion1.nutandroidshowcase.viewmodels.RandomQuoteViewModel
+import org.koin.android.ext.android.inject
 
 
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
 
-    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels {
-        val randomQuoteDb = Room.databaseBuilder(
-            requireContext(),
-            RandomQuoteDatabase::class.java, "random_quote_db")
-            .fallbackToDestructiveMigration()
-            .build()
+//    private val randomQuoteRepository: RandomQuoteRepository by inject()
+//
+//    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels {
+//        RandomQuoteViewModel.Factory(randomQuoteRepository)
+//    }
 
-        val randomQuoteRepository = RandomQuoteRepository(
-            ApiManager.getRandomQuoteService(),
-            randomQuoteDb.randomQuoteDao(),
-            RandomQuoteMapper(),
-        )
-
-        RandomQuoteViewModel.Factory(randomQuoteRepository)
-    }
+    private val randomQuoteViewModel: RandomQuoteViewModel by inject()
 
 
     override fun onCreateView(

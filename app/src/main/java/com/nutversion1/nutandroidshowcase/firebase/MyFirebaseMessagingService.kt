@@ -1,4 +1,4 @@
-package com.nutversion1.nutandroidshowcase
+package com.nutversion1.nutandroidshowcase.firebase
 
 import android.util.Log
 import android.widget.Toast
