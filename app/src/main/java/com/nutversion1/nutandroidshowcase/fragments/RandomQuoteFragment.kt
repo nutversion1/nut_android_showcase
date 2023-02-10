@@ -25,14 +25,7 @@ import org.koin.android.ext.android.inject
 class RandomQuoteFragment : Fragment() {
     private lateinit var binding: FragmentRandomQuoteBinding
 
-//    private val randomQuoteRepository: RandomQuoteRepository by inject()
-//
-//    private val randomQuoteViewModel: RandomQuoteViewModel by viewModels {
-//        RandomQuoteViewModel.Factory(randomQuoteRepository)
-//    }
-
     private val randomQuoteViewModel: RandomQuoteViewModel by inject()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
