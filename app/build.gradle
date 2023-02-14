@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':opencv460')
+
     def room_version = "2.5.0"
     def coroutines_version = "1.3.9"
     def gson_version = "2.9.0"
@@ -50,6 +50,8 @@ dependencies {
 //    def open_cv_version = "4.5.3.0"
     def lifecycle_version = "2.5.1"
     def work_manager_version = "2.5.0"
+
+    implementation project(path: ':opencv460')
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
