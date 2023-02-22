@@ -31,6 +31,13 @@
         />
 
     <Button
+        android:id="@+id/map_button"
+        android:text="map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
         android:id="@+id/test1_button"
         android:text="test 1"
         android:layout_width="match_parent"

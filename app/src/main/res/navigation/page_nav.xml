@@ -22,6 +22,10 @@
             android:id="@+id/go_to_blur_detection_fragment_action"
             app:destination="@id/blur_detection_fragment">
         </action>
+        <action
+            android:id="@+id/go_to_map_fragment_action"
+            app:destination="@id/map_fragment">
+        </action>
     </fragment>
 
     <fragment
@@ -76,6 +80,12 @@
         android:id="@+id/blur_detection_fragment"
         android:name="com.nutversion1.nutandroidshowcase.fragments.BlurDetectionFragment"
         tools:layout="@layout/fragment_blur_detection">
+    </fragment>
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.nutversion1.nutandroidshowcase.fragments.MapFragment"
+        tools:layout="@layout/fragment_map">
     </fragment>
 
     <fragment

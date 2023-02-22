@@ -52,6 +52,10 @@ class MainMenuFragment : Fragment() {
             Navigation.createNavigateOnClickListener(R.id.go_to_blur_detection_fragment_action)
         )
 
+        binding.mapButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.go_to_map_fragment_action)
+        )
+
 
         //
         binding.test1Button.setOnClickListener {
